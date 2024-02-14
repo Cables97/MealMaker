@@ -1,0 +1,517 @@
+$color-background:#050634;
+$color-background-edge: #04031b;
+$color-box-bg: rgb(202, 202, 202);
+$color-accent: #DE615B;
+$color-accent-dark: #723344;
+$color-text: #dddddd;
+
+$font: "Roboto Condensed", sans-serif;
+
+@mixin title-font{
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-variant: small-caps;
+}
+
+@mixin text-font{
+    font-family: "Roboto Condensed", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+@mixin proxy-border{
+    border:2px solid red;
+}
+
+@mixin box{
+    border-radius: 10px;
+    background-color: $color-box-bg;
+    box-shadow: 0 0 50px 2px rgba($color: $color-background-edge, $alpha: .25) inset, 1px 1px 20px 0 rgba($color: $color-background-edge, $alpha: .5);
+
+}
+
+
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    position: fixed;
+    height:100vh;
+    width:100vw;
+    padding:0;
+    margin:0;
+    background-color: $color-background;
+    box-shadow: 0 0 100px 50px $color-background-edge inset;
+}
+
+.title{
+    text-align: center;
+    color:$color-text;
+    @include title-font;
+}
+
+
+//----------------------------------
+// Main Calender
+//----------------------------------
+.calender-wrapper{
+    @include box;
+    height: 800px;
+    margin: auto;
+    display:flex;
+    flex-direction: column;
+    aspect-ratio: 7 / 5;
+
+    .week-labels{
+        display:flex;
+        height: 2em;
+        align-items: center;
+        justify-content: space-between;
+        width: calc(100% - 120px);
+        margin: auto;
+    }
+
+    .week{
+        display: flex;
+        flex-direction: row;
+        height: calc((100% - 2em)/ 5);
+        .day{
+            position: relative;
+            @include proxy-border;
+            width:(calc(100% / 7));
+            aspect-ratio: 1;
+            padding:0;
+
+            div{
+                margin:0;
+                position: absolute;
+                top:0;
+                border: 1px solid black;
+                height: 3em;
+                width:  3em;
+                p{
+                    line-height: 150%;
+                    margin:auto;
+                    font-family: $font;
+                    text-align: center;
+                    font-size: 2em;
+                }
+            }
+        }
+    }
+    
+}
+
+.month-selector{
+    @include proxy-border;
+    width:8em;
+    height:2em;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:auto;
+    @include text-font;
+    color:white;
+
+
+}
+
+
+
+//----------------------------------
+// Side-box Classes
+//----------------------------------
+
+
+.side-bar{
+    @include proxy-border;
+    @include box;
+    position: fixed;
+    top:0;
+    height:100vh;
+    transition: .5s;
+        .subtitle{
+            text-align: center;
+            color:$color-background;
+            @include title-font;
+        }
+
+        .sub-left{
+            @include proxy-border;
+            position:absolute;
+            rotate:90deg;
+            right:-10px;
+            top:calc(50% - 20px);
+        }
+
+        .sub-right{
+            @include proxy-border;
+            position:absolute;
+            rotate:90deg;
+            left:-56px;
+            top:calc(50% - 20px);
+        }
+
+        .close-btn-wrapper{
+            position:absolute;
+            top:50%;
+            border-radius: 50%;
+            height:64px;
+            width:64px;
+            background-color: $color-accent-dark;
+            box-shadow: 0 0 10px 1px rgba($color: $color-background-edge, $alpha: .25) inset, 1px 1px 5px 0 rgba($color: $color-background-edge, $alpha: .5);
+            transition:0.5s;
+            
+            i{
+                color:white;
+                margin:50% 50%;
+                transform: translate(-40%, -50%);
+            }
+        }
+
+        .close-btn-wrapper:hover{
+            background-color: $color-accent;
+            box-shadow: 1px 1px 10px 3px rgba($color: $color-accent, $alpha: .5)
+        }
+
+        .right{
+            left:-32px;
+        }
+        .left{
+            right:-32px;
+        }
+}
+
+.recipes{
+    width:400px;
+    left:-335px;
+
+    .recipe-top-bar{
+        @include proxy-border;
+        height: 50px;
+        width: 68%;
+        margin:40px auto 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .filter-search{
+            border:2px solid black;
+            border-radius: 5px;
+            background-color: #dddddd;
+            height: 90%;
+            margin:auto;
+            width: 98%;
+            outline: none;
+        }
+
+        .recipe-add-btn{
+            margin-right:10px;
+        }
+    }
+
+    .recipe-container{
+        @include proxy-border;
+        width: 68%;
+        margin:auto;
+        height: 600px;
+        
+        .recipe-item{
+            @include proxy-border;
+            background-color: #f1f1f1;
+            .recipe-item-top-bar{
+                @include text-font;
+                border: 1px solid black;
+                cursor: pointer;
+                padding: 4px .5em;
+                width: 100%;
+                text-align: left;
+                outline: none;
+                font-size: 15px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .recipe-item-content{
+                @include proxy-border;
+                overflow: hidden;
+                @include text-font;
+                font-weight: 400;
+                padding-top:10px;
+                display:none;
+            
+                .recipe-ingredient{
+                    display:flex;
+                    justify-content: space-between;
+                    width: 90%;
+                    line-height: 100%;
+                    padding:0;
+                    margin:auto;
+                    border-bottom:1px solid rgba($color: black, $alpha: .5);
+                    p{
+                        margin:0;
+                        line-height: 100%;
+                    }
+                    p:nth-child(1){
+                        border-right:1px solid rgba($color: black, $alpha: .5);
+                        width: 8em;
+                    }
+                    p:nth-child(2){
+                        border-right:1px solid rgba($color: black, $alpha: .5);
+                        width: 3em;
+                    }
+                }
+                .recipe-ingredient:last-child{
+                    border-bottom:none;
+                }
+            }
+            .recipe-item-content:last-child{
+                padding-bottom:10px;
+            }
+
+        }
+    }
+
+    .recipe-side-bar{
+        
+        position: absolute;
+        height:100%;
+        width: 4em;
+        .filter-item{
+            border:1px solid black;
+            position: relative;
+            height:calc(100% / 15);
+            aspect-ratio: 1;
+            transition: .25s;
+
+            i{
+                margin:50%;
+                transform: translate(-50%, -5px);
+            }
+            p{
+                position: absolute;
+                bottom:0px;
+                font-family: $font;
+                font-weight: 600;
+                font-size: .75em;
+                width:100%;
+                line-height:0;
+                text-align: center;
+            }
+        }
+
+        .filter-item:hover{
+            cursor: pointer;
+            box-shadow: 0 0 4px 4px rgba($color: $color-accent, $alpha: .75), 0 0 2px 2px rgba($color: black, $alpha: .25) inset;
+        }
+
+        .filter-item:first-child{
+            border-radius: 10px 0 0 0;
+        }
+
+        .f-i-include{
+            background-color: rgba($color: $color-background, $alpha: .25)
+        }
+
+        .f-i-exclude{
+            background-color: rgba($color: $color-accent, $alpha: .25)
+        }
+
+        .filter-item-add{
+            border:1px solid black;
+            position: relative;
+            height:calc(100% / 15);
+            aspect-ratio: 1;
+            border-radius: 0 0 0 10px;
+            background-color: rgba($color: lightgreen, $alpha: .5);
+            transition: .5s;
+            i{
+                margin:50%;
+                transform: translate(-50%, -5px);
+            }
+            p{
+                position: absolute;
+                bottom:0px;
+                font-family: $font;
+                font-size: .75em;
+                font-weight: 600;
+                width:100%;
+                line-height:0;
+                text-align: center;
+            }
+        }
+        .filter-item-add:hover{
+            cursor: pointer;
+            background-color: rgba($color: lightgreen, $alpha: 1);
+            box-shadow: 0 0 4px 4px rgba($color: black, $alpha: .5), 0 0 2px 2px rgba($color: black, $alpha: .5) inset;
+        }
+    }
+}
+
+.shopping-list{
+    width:500px;
+    right:-435px;
+
+    .list-container{
+        @include proxy-border;
+        width: 75%;
+        height:800px;
+        margin:40px auto;
+        .list-item{
+            display: flex;
+            justify-content: space-between;
+            height: 3em;
+            border: 1px solid black;
+
+            .item-name{
+                @include text-font;
+                border-right: 1px solid black;
+                flex-grow: 4;
+                p{
+                    margin-left: 1em;
+                }
+            }
+            .item-qnty{
+                @include text-font;
+                width: 60px;
+                text-align: center;
+            }
+
+        }
+        .list-item:nth-child(even){
+            background-color: rgba($color: $color-background-edge, $alpha: .1)
+        }
+    }
+
+    .download-btn{
+        position:absolute;
+        width:75%;
+        height:2em;
+        bottom: 40px;
+        left:50%;
+        transform: translate(-50%, 0);
+        border:none;
+        border-radius: 5px;
+        background-color: $color-accent-dark;
+        @include title-font;
+        font-size: 2em;
+        color:white;
+        transition:.25s;
+    }
+    .download-btn:hover{
+        background-color: $color-accent;
+        box-shadow: 1px 1px 10px 3px rgba($color: $color-accent, $alpha: .5)
+    }
+
+
+}
+
+.inactive{
+    display:none;
+}
+
+.active{
+    display:inherit;
+}
+
+
+//----------------------------------
+// Animation Classes
+//----------------------------------
+
+
+.s-l-open{
+    animation: shopping-list-open .5s ease-in-out forwards;
+}
+
+.s-l-close{
+    animation: shopping-list-close .5s ease-in-out forwards;
+}
+
+.rec-open{
+    animation: recipe-list-open .5s ease-in-out forwards;
+}
+
+.rec-close{
+    animation: recipe-list-close .5s ease-in-out forwards;
+}
+
+.btn-rotate-open{
+    animation: btn-rotate-open .5s ease-in-out forwards;
+}
+
+.btn-rotate-close{
+    animation: btn-rotate-close .5s ease-in-out forwards;
+}
+
+@keyframes shopping-list-open {
+    0%{
+        right:-435px;
+    }
+    90%{
+        right:5px;
+    }
+    100%{
+        right:0;
+    }
+}
+
+@keyframes shopping-list-close {
+    0%{
+        right:0;
+    }
+    90%{
+        right:-440px
+    }
+    100%{
+        right:-435px;
+    }
+}
+
+@keyframes recipe-list-open {
+    0%{
+        left:-335px;
+    }
+    90%{
+        left:5px;
+    }
+    100%{
+        left:0;
+    }
+}
+
+@keyframes recipe-list-close {
+    0%{
+        left:0;
+    }
+    90%{
+       left: -340px;
+    }
+    100%{
+        left:-335px;
+    }
+}
+
+@keyframes btn-rotate-open{
+    from{
+        rotate:0deg;
+    }
+    to{
+        rotate:180deg;
+    }
+}
+
+@keyframes btn-rotate-close{
+    0%{
+        rotate:180deg;
+    }
+    100%{
+        rotate:0deg;
+    }
+}
