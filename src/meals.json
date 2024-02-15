@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Sloppy Joes",
+    "calories": 750,
+    "cookTime": "30 minutes",
+    "ingredients": {
+      "slider-bunsU": 2,
+      "ground-beefLb": 0.5,
+      "manwich-sauceCn": 0.5
+    },
+    "directions": {
+      "1": "Brown ground beef in a saucepan, drain excess liquids",
+      "2": "Add Manwich sauce to pan, place on medium heat until it starts to bubble",
+      "3": "Serve on buns, allow to cool before eating",
+      "4": "Leftovers can be frozen in an airtight container for up to 3 months."
+    }
+  }
+]
