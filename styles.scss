@@ -188,7 +188,7 @@ body{
 
 .recipes{
     width:400px;
-    left:-335px;
+    //left:-335px;
 
     .recipe-top-bar{
         @include proxy-border;
@@ -304,6 +304,12 @@ body{
                 line-height:0;
                 text-align: center;
             }
+            img{
+                height:32px;
+                width: 32px;
+                margin:50%;
+                transform: translate(-50%, -70%);
+            }
         }
 
         .filter-item:hover{
@@ -311,9 +317,10 @@ body{
             box-shadow: 0 0 4px 4px rgba($color: $color-accent, $alpha: .75), 0 0 2px 2px rgba($color: black, $alpha: .25) inset;
         }
 
-        .filter-item:first-child{
-            border-radius: 10px 0 0 0;
+        .filter-item:last-child{
+            border-radius:  0 0 0 10px;
         }
+
 
         .f-i-include{
             background-color: rgba($color: $color-background, $alpha: .25)
@@ -328,7 +335,7 @@ body{
             position: relative;
             height:calc(100% / 15);
             aspect-ratio: 1;
-            border-radius: 0 0 0 10px;
+            border-radius: 10px 0 0 0;
             background-color: rgba($color: lightgreen, $alpha: .5);
             transition: .5s;
             i{
