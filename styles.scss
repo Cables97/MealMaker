@@ -232,6 +232,8 @@ body{
             margin:auto;
             width: 98%;
             outline: none;
+            @include text-font;
+            font-weight: 500;
         }
 
         .recipe-add-btn{

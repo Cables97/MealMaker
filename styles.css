@@ -166,6 +166,11 @@ body {
   margin: auto;
   width: 98%;
   outline: none;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-weight: 500;
 }
 .recipes .recipe-top-bar .recipe-add-btn {
   margin-right: 10px;
