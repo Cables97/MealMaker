@@ -22,6 +22,7 @@
         <i class="fa-solid fa-chevron-right"></i>
     </div>
 
+    <!-- Main Calender Wrapper -->
     <div class="calender-wrapper">
 
         <div class="week-labels">
@@ -191,7 +192,7 @@
         <h1 class="subtitle sub-left">Recipes</h1>
 
         <!--Slider Btn-->
-        <div class="close-btn-wrapper left" id="recipe-btn">
+        <div class="close-btn-wrapper left" id="recipe-open-btn">
             <i class="fa-solid fa-chevron-right" id="r-btn-img"></i>
         </div>
 
@@ -285,13 +286,15 @@
         </div>
 
 
-        <!--Recipe top bar-->
-        <div class="recipe-top-bar">
-            <input type="text" name="search" class='filter-search' placeholder="Search.."> 
-        </div>
+        
 
         <!--Recipe Container-->
-        <div class="recipe-container">
+        <div class="recipe-container" id="recipe-container">
+
+            <!--Recipe top bar-->
+            <div class="recipe-top-bar">
+                <input type="text" name="search" class='filter-search' placeholder="Search.."> 
+            </div>
 
             <div class="recipe-item">
                 <div class="recipe-item-top-bar">
@@ -300,6 +303,15 @@
                 </div>
 
                 <div class="recipe-item-content">
+
+                    <div class="recipe-info">
+                        <div class="time-track">
+                            <i class="fa-solid fa-clock fa-lg"></i>
+                            <p>10 Min</p>
+                        </div>
+                        <a href="https://google.ca">Recipe<i class="fa-solid fa-link"></i></a>
+
+                    </div>
 
                     <div class="recipe-ingredient">
                         <p>Onion</p>
@@ -331,6 +343,11 @@
 
         </div>
 
+        <div class="recipe-bottom-bar">
+            <div class="save-load-btn save"><p>Save</p></div>
+            <div class="save-load-btn load"><p>Upload</p></div> 
+        </div>
+
 
     </div>
 
@@ -339,7 +356,7 @@
         <h1 class="subtitle sub-right" id="shopping-list-title">Shopping list</h1>
         
         <!--Slider Btn-->
-        <div class="close-btn-wrapper right" id="s-l-btn">
+        <div class="close-btn-wrapper right" id="s-l-open-btn">
             <i class="fa-solid fa-chevron-left" id="s-l-btn-img"></i>
         </div>
         <!--Shopping List-->
