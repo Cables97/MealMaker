@@ -24,7 +24,7 @@ const domShoppingList = document.getElementById('shopping-list');
 const domShoppingListButton = document.getElementById('s-l-open-btn');
 
 
-buildRecipes(data[0]);
+buildRecipeList(data[0]);
 //----------------------------------
 // EventListeners Variables
 //----------------------------------
@@ -54,6 +54,19 @@ for (let index = 0; index < ingr.length; index++) {
     toggleFilterItems(this);
   });
 } 
+
+//drag n drop Events
+let dragDrop = document.getElementsByClassName('drag-drop');
+for (let index = 0; index < dragDrop.length; index++) {
+  console.log(dragDrop[index]);
+  dragDrop[index].addEventListener("drop", (event) => {
+    drop(event);
+  });
+  dragDrop[index].addEventListener('dragover', (event)=>{
+    allowDrop(event);
+  });
+} 
+
 
 
 //----------------------------------
@@ -118,12 +131,9 @@ function toggleFilterItems(el){
         el.classList.add('f-i-include');
       }
 }
-console.log(data[0].ingredients[0][0].split(/-/).join(" "));
-console.log(data[0].ingredients[0][1][0] + " " + data[0].ingredients[0][1][1]);
 
 
-
-function buildRecipes(recipe){
+function buildRecipeList(recipe){
 
   let recipeName = recipe.name;
   let recipeCalories = recipe.calories + " cal";
@@ -132,7 +142,6 @@ function buildRecipes(recipe){
   let recipeDirections = recipe.directions;
 
  
-
  //Recipe Box
   let recipeMaster = document.createElement("div");
   recipeMaster.classList.add('recipe-item');
@@ -185,6 +194,8 @@ function buildRecipes(recipe){
       recipeLink.append(recipeLinkImg);
 
 
+      console.log(data[0].ingredients[0][0].split(/-/).join(" "));
+      console.log(data[0].ingredients[0][1][0] + " " + data[0].ingredients[0][1][1]);
 
     //FOR EACH RECIPE ITEM
     recipeIngredientList.forEach(ingr => {
@@ -242,3 +253,20 @@ function buildRecipes(recipe){
 
   slice last 2 letters off string to give Unit. Slice at (-) for space. 
 */
+
+function allowDrop(even) {
+  even.preventDefault();
+}
+
+function drag(even) {
+  even.dataTransfer.setData("text", even.target.id);
+}
+
+function drop(even) {
+  even.preventDefault();
+  var fetchData = even.dataTransfer.getData("application/x-moz-node");
+  even.target.appendChild(document.getElementById(fetchData));
+}
+
+//for each day, assign 
+

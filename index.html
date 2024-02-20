@@ -12,6 +12,26 @@
 </head>
 <body>
 
+
+
+    <script>
+        function allowDrop(even) {
+            even.preventDefault();
+        }
+   
+        function drag(even) {
+            even.dataTransfer.setData("text", even.target.id);
+        }
+   
+        function drop(even) {
+            even.preventDefault();
+            var fetchData = even.dataTransfer.getData("text");
+            even.target.appendChild(document.getElementById(fetchData));
+        }
+      </script>
+
+
+
     <header>
         <h1 class="title">MealMaker</h1>
     </header>
@@ -25,6 +45,12 @@
     <!-- Main Calender Wrapper -->
     <div class="calender-wrapper">
 
+
+   
+
+
+
+          
         <div class="week-labels">
             <p>Sunday</p>
             <p>Monday</p>
@@ -34,152 +60,66 @@
             <p>Friday</p>
             <p>Saturday</p>
         </div>
+
         <div class="week">
-            <div class="day">
-                <div><p>1</p></div>
+
+
+            <div class="day drag-drop">
+                <div><p>Sun</p></div>
+            </div>
+
+            <div class="day drag-drop">
+                <div><p>Mon</p></div>
             </div>
 
             <div class="day">
-                <div><p>2</p></div>
+                <div><p>Tues</p></div>
             </div>
 
             <div class="day">
-                <div><p>3</p></div>
+                <div><p>Wed</p></div>
             </div>
 
             <div class="day">
-                <div><p>4</p></div>
+                <div><p>Thurs</p></div>
             </div>
 
             <div class="day">
-                <div><p>5</p></div>
+                <div><p>Fri</p></div>
             </div>
 
             <div class="day">
-                <div><p>6</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>7</p></div>
+                <div><p>Sat</p></div>
             </div>
         </div>
 
         <div class="week">
             <div class="day">
-                <div><p>8</p></div>
+                <div><p>Sun</p></div>
             </div>
 
             <div class="day">
-                <div><p>9</p></div>
+                <div><p>Mon</p></div>
             </div>
 
             <div class="day">
-                <div><p>10</p></div>
+                <div><p>Tues</p></div>
             </div>
 
             <div class="day">
-                <div><p>11</p></div>
+                <div><p>Wed</p></div>
             </div>
 
             <div class="day">
-                <div><p>12</p></div>
+                <div><p>Thurs</p></div>
             </div>
 
             <div class="day">
-                <div><p>13</p></div>
+                <div><p>Fri</p></div>
             </div>
 
             <div class="day">
-                <div><p>14</p></div>
-            </div>
-        </div>
-        <div class="week">
-            <div class="day">
-                <div><p>15</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>16</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>17</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>18</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>19</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>20</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>21</p></div>
-            </div>
-        </div>
-
-        <div class="week">
-            <div class="day">
-                <div><p>22</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>23</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>24</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>25</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>26</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>27</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>28</p></div>
-            </div>
-        </div>
-
-        <div class="week">
-            <div class="day">
-                <div><p>29</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>30</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>31</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>1</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>2</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>3</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>4</p></div>
+                <div><p>Sat</p></div>
             </div>
         </div>
 
@@ -296,7 +236,7 @@
                 <input type="text" name="search" class='filter-search' placeholder="Search.."> 
             </div>
 
-            <div class="recipe-item">
+            <div class="recipe-item" id="mush" draggable="true" ondragstart="drag(event)" class="draggable"> 
                 <div class="recipe-item-top-bar">
                     <p>Pizza Pie</p>
                     <p>650 cal</p>
@@ -399,7 +339,10 @@
     </div>
 
     <footer>
+        
+
     </footer>
+
 
 
 </body>
