@@ -60,13 +60,22 @@ let dragDrop = document.getElementsByClassName('drag-drop');
 for (let index = 0; index < dragDrop.length; index++) {
   console.log(dragDrop[index]);
   dragDrop[index].addEventListener("drop", (event) => {
-    drop(event);
+
+    event.preventDefault();
+    let fetchData = event.dataTransfer.getData("text");
+    event.target.appendChild(document.getElementById(fetchData));
   });
   dragDrop[index].addEventListener('dragover', (event)=>{
     allowDrop(event);
   });
 } 
 
+let gradObjs = document.getElementsByClassName('draggable');
+for (let index = 0; index < gradObjs.length; index++) {
+  gradObjs[index].addEventListener("dragstart", (event) => {
+    drag(event)
+  });
+} 
 
 
 //----------------------------------
@@ -146,6 +155,12 @@ function buildRecipeList(recipe){
   let recipeMaster = document.createElement("div");
   recipeMaster.classList.add('recipe-item');
   domRecipeContainer.append(recipeMaster);
+  recipeMaster.draggable = 'true';
+  recipeMaster.classList.add('draggable');
+  recipeMaster.id = recipeName;
+
+
+
     //Visible Recipe Bar
     let recipeItemTopBar = document.createElement('div');
     recipeItemTopBar.classList.add('recipe-item-top-bar');
@@ -264,8 +279,13 @@ function drag(even) {
 
 function drop(even) {
   even.preventDefault();
-  var fetchData = even.dataTransfer.getData("application/x-moz-node");
-  even.target.appendChild(document.getElementById(fetchData));
+  let data=even.dataTransfer.getData("text/html");
+  /* If you use DOM manipulation functions, their default behaviour it not to 
+     copy but to alter and move elements. By appending a ".cloneNode(true)", 
+     you will not move the original element, but create a copy. */
+  let nodeCopy = document.getElementById(data).cloneNode(true);
+  nodeCopy.id = "newId"; /* We cannot use the same ID */
+  even.target.appendChild(nodeCopy);
 }
 
 //for each day, assign 

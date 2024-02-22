@@ -14,24 +14,6 @@
 
 
 
-    <script>
-        function allowDrop(even) {
-            even.preventDefault();
-        }
-   
-        function drag(even) {
-            even.dataTransfer.setData("text", even.target.id);
-        }
-   
-        function drop(even) {
-            even.preventDefault();
-            var fetchData = even.dataTransfer.getData("text");
-            even.target.appendChild(document.getElementById(fetchData));
-        }
-      </script>
-
-
-
     <header>
         <h1 class="title">MealMaker</h1>
     </header>
@@ -44,13 +26,7 @@
 
     <!-- Main Calender Wrapper -->
     <div class="calender-wrapper">
-
-
-   
-
-
-
-          
+ 
         <div class="week-labels">
             <p>Sunday</p>
             <p>Monday</p>
@@ -63,63 +39,32 @@
 
         <div class="week">
 
+            <div class="day drag-drop">
+                <p class="day-border">Sun</p>
+            </div>
 
             <div class="day drag-drop">
-                <div><p>Sun</p></div>
+                <p class="day-border">Mon</p>
             </div>
 
             <div class="day drag-drop">
-                <div><p>Mon</p></div>
+                <p class="day-border">Tues</p>
             </div>
 
-            <div class="day">
-                <div><p>Tues</p></div>
+            <div class="day drag-drop">
+                <p class="day-border">Wed</p>
             </div>
 
-            <div class="day">
-                <div><p>Wed</p></div>
+            <div class="day drag-drop">
+                <p class="day-border">Thurs</p>
             </div>
 
-            <div class="day">
-                <div><p>Thurs</p></div>
+            <div class="day drag-drop">
+                <p class="day-border">Fri</p>
             </div>
 
-            <div class="day">
-                <div><p>Fri</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Sat</p></div>
-            </div>
-        </div>
-
-        <div class="week">
-            <div class="day">
-                <div><p>Sun</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Mon</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Tues</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Wed</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Thurs</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Fri</p></div>
-            </div>
-
-            <div class="day">
-                <div><p>Sat</p></div>
+            <div class="day drag-drop">
+                <p class="day-border">Sat</p>
             </div>
         </div>
 
@@ -236,7 +181,7 @@
                 <input type="text" name="search" class='filter-search' placeholder="Search.."> 
             </div>
 
-            <div class="recipe-item" id="mush" draggable="true" ondragstart="drag(event)" class="draggable"> 
+            <div class="recipe-item draggable" id="mush" draggable="true"> 
                 <div class="recipe-item-top-bar">
                     <p>Pizza Pie</p>
                     <p>650 cal</p>
