@@ -70,9 +70,9 @@ for (let index = 0; index < dragDrop.length; index++) {
   });
 } 
 
-let gradObjs = document.getElementsByClassName('draggable');
-for (let index = 0; index < gradObjs.length; index++) {
-  gradObjs[index].addEventListener("dragstart", (event) => {
+let grabObjs = document.getElementsByClassName('draggable');
+for (let index = 0; index < grabObjs.length; index++) {
+  grabObjs[index].addEventListener("dragstart", (event) => {
     drag(event)
   });
 } 
@@ -82,6 +82,7 @@ for (let index = 0; index < gradObjs.length; index++) {
 // Functions
 //----------------------------------
 
+//Opens Shopping List
 function toggleShoppingList(){
     if (domShoppingList.classList.contains('s-l-open')){
       domShoppingList.classList.remove('s-l-open')
@@ -99,6 +100,7 @@ function toggleShoppingList(){
     }
 }
 
+//Opens Recipe List
 function toggleRecipeList(){
   domRecipeButton.offsetWidth;
   if (domRecipeList.classList.contains('rec-open')){
@@ -120,7 +122,7 @@ function toggleRecipeList(){
 
 
 
-
+//Collapsable recipe info
 function toggleRecipeCollapse(collapse){
   collapse.classList.toggle("active");
   if (collapse.style.display === "block") {
@@ -130,6 +132,7 @@ function toggleRecipeCollapse(collapse){
   }
 }
 
+//change filter items from Include => Exclude => None
 function toggleFilterItems(el){
   if (el.classList.contains('f-i-include')) {
       el.classList.remove('f-i-include');
@@ -141,7 +144,7 @@ function toggleFilterItems(el){
       }
 }
 
-
+//Creates each Recipe Item based on each JSON Object
 function buildRecipeList(recipe){
 
   let recipeName = recipe.name;
@@ -288,5 +291,9 @@ function drop(even) {
   even.target.appendChild(nodeCopy);
 }
 
-//for each day, assign 
 
+
+
+function createCalenderItem(){
+
+}
