@@ -44,8 +44,6 @@ $font: "Roboto Condensed", sans-serif;
     box-shadow: 1px 1px 2px 1px rgba($color: black, $alpha: .25);
 }
 
-
-
 @mixin button1{
     @include btn;
     background-color: $button-1;
@@ -55,7 +53,6 @@ $font: "Roboto Condensed", sans-serif;
     background-color: $button-1-highlight;
     box-shadow: 1px 1px 10px 3px rgba($color: $button-1-highlight, $alpha: .5);
 }
-
 
 @mixin button2{
     @include btn;
@@ -78,6 +75,10 @@ $font: "Roboto Condensed", sans-serif;
 *{
     box-sizing: border-box;
 }
+html{
+    padding:0;
+    margin:0;
+}
 
 body{
     position: fixed;
@@ -95,9 +96,23 @@ body{
     @include title-font;
 }
 
+header{
+    display: flex; 
+    justify-content: center;
+    img{
+        height:120px;
+        color:$color-text;
+        filter: invert(100%);
+        margin-bottom: 20px;
+    }
+}
+
+
 //----------------------------------
 // Main Calender
 //----------------------------------
+
+
 .calender-wrapper{
     @include box;
     height: 800px;
@@ -254,16 +269,119 @@ body{
 
 }
 
-.recipe-item{
+.calender-item{
     position: relative;
+    @include proxy-border;
+
+    .title-wrapper{
+        @include text-font;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding:0 1em;
+        height: 3em;
+
+        .close-btn{
+            display: none;
+            i:hover{
+                cursor: pointer;
+                color:$button-2;
+            }
+
+        }
+
+    }
+
+
+
     .tool-tip{
+        display:none;
+        opacity: 0;
         position: absolute;
+        z-index: 5;
         left:150px;
-        top:-200px;
+        top:-100px;
         width: 200px;
         @include proxy-border;
-    }
+        background-color: white;
+        transition: 1s;
+
+            .recipe-info{
+                display:flex;
+                width:90%;
+                height:3em;
+                margin:auto;
+                align-items: center;
+                justify-content: space-between;
+    
+                .time-track{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    i{
+                        margin-right:5px;
+                        opacity: 50%;
+                    }
+                    p{
+                        @include text-font;
+                        text-transform: capitalize;
+                        font-size: .8em;
+                        
+                    }
+                }
+                p{
+                    @include text-font;
+                    text-transform: capitalize;
+                    font-size: .8em;
+                }
+                a{
+                    @include text-font;
+                    font-size: .8em;
+                }
+
+
+
+            }
+        
+            .recipe-ingredient{
+                display:flex;
+                justify-content: space-between;
+                width: 90%;
+                line-height: 100%;
+                padding:0;
+                margin:5px auto;
+                border-bottom:1px solid rgba($color: black, $alpha: .25);
+                p{
+                    margin:0;
+                    line-height: 125%;
+                    text-transform: capitalize;
+                }
+                p:nth-child(1){
+                    border-right:1px solid rgba($color: black, $alpha: .25);
+                    width: 8em;
+                }
+                p:nth-child(2){
+                    border-right:1px solid rgba($color: black, $alpha: .25);
+                    width: 4em;
+                    text-align: center;
+                }
+            }
+            .recipe-ingredient:last-child{
+                border-bottom:none;
+            }
+        }
 }
+
+.calender-item:hover > .tool-tip{
+    display:inherit;
+    opacity: 100%;
+}
+
+.calender-item:hover > .title-wrapper > .close-btn{
+    display:inherit;
+}
+
 
 
 
@@ -276,6 +394,7 @@ body{
     position: fixed;
     top:0;
     height:100vh;
+    max-height: 955bpx;
     transition: .5s;
     border: 1px solid rgba($color: black, $alpha: .5);
         .subtitle{
@@ -318,6 +437,27 @@ body{
             right:-32px;
         }
 }
+
+.inactive{
+    display:none;
+}
+
+.active{
+    display:inherit;
+}
+
+.drag-drop {
+    border: 1px solid pink;
+}
+
+.draggable{
+    border: 1px solid red;
+    //z-index: 2;
+}
+
+//----------------------------------
+// Recipe Classes
+//----------------------------------
 
 .recipes{
     width:400px;
@@ -488,78 +628,6 @@ body{
     }
 }
 
-.shopping-list{
-    width:500px;
-    right:-435px;
-
-    .list-container{
-        width: 75%;
-        height:800px;
-        margin:40px auto;
-        background-color: rgba($color: gray, $alpha: 0.25);
-        box-shadow: -2px -2px 3px 2px rgba($color: gray, $alpha: 0.25) inset, -1px -1px 1px 1px rgba($color: gray, $alpha: 0.5) inset ;
-        .list-item{
-            display: flex;
-            justify-content: space-between;
-            height: 3em;
-            border: 1px solid black;
-            background-color: #f7f7f7;
-
-            .item-name{
-                @include text-font;
-                border-right: 1px solid black;
-                flex-grow: 4;
-                p{
-                    margin-left: 1em;
-                }
-            }
-            .item-qnty{
-                @include text-font;
-                width: 60px;
-                text-align: center;
-            }
-
-        }
-        .list-item:nth-child(even){
-            background-color: rgba($color: rgb(241, 241, 241), $alpha: 0.2)
-        }
-    }
-
-    .download-btn{
-        position:absolute;
-        width:75%;
-        height:2em;
-        bottom: 40px;
-        left:50%;
-        transform: translate(-50%, 0);
-        @include button2;
-    }
-
-    .download-btn:hover{
-        @include button2-hover;
-    }
-
-
-}
-
-.inactive{
-    display:none;
-}
-
-.active{
-    display:inherit;
-}
-
-.drag-drop {
-    border: 1px solid pink;
-}
-
-.draggable{
-    border: 1px solid red;
-    z-index: 999;
-}
-
- 
 .recipe-item{
     border: 1px solid rgba($color: black, $alpha: .5);;
     border-radius: 5px 5px 5px 5px;
@@ -648,18 +716,314 @@ body{
 
 }
 
+
+
+
+.add-recipe-modal{
+    position: fixed;
+    display: none;
+    top:0;
+    left:0;
+    height:100vh;
+    width:100vw;
+    .modal-bg{
+        height:100%;
+        width:100%;
+        background-color: rgba($color: #131313, $alpha: .45);
+        z-index: -1;
+    }
+    .modal{
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        height: 800px;
+        width:600px;
+        background-color: $color-text;
+        z-index: 5;
+        overflow-y: auto;
+        border:2px solid rgba($color: gray, $alpha: .25);
+        border-radius: 10px;
+        box-shadow: 5px 5px 10px 5px rgba($color: #131313, $alpha: .25);
+
+        .close-btn{
+            position: absolute;
+            top:1em;
+            right: 1em;
+        }
+            i:hover{
+                cursor: pointer;
+                color:$button-2;
+            }
+        h1{
+            @include title-font;
+            text-align: center;
+        }
+
+        .download-btn{
+            display: block;
+            @include button2;
+            position: relative;
+            width:75%;
+            height:2em;
+            margin:0 auto;
+        }
+    
+        .download-btn:hover{
+            @include button2-hover;
+        }
+    }
+}
+
+.inline{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.input-field{
+            display:flex;
+            flex-direction: column;
+            label{
+                @include text-font;
+                text-align: center;
+            }
+            input{
+                margin:auto;
+                width:5em;
+                line-height: 200%;
+            }
+            .recipe-name-input{
+                width:20em;
+                margin-bottom: 2em;
+            }
+}
+
+.recipe-ingredient-box{
+    margin: 2em 0 2em 0;
+    h3{
+       @include title-font; 
+        text-align: center;
+        padding:0;
+        margin:0;   
+    }
+
+    .recipe-ingr-box-topline{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width:72%;
+            margin: 0 auto;
+            padding:0;
+            @include text-font;
+            p{
+                padding:0;
+                margin:.25em;
+            }
+            p:nth-of-type(2){
+                margin-left:240px;
+            }
+
+    }
+
+    ul{
+        padding:0;
+        margin:0;
+        li{
+            position: relative;
+            width:80%;
+            margin:.5em auto;
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            .ingr-name{
+                width: 70%;
+                line-height: 150%;
+            }
+            .ingr-qnty{
+                width:10%;
+                line-height: 150%;
+            }
+            .ingr-unit{
+                height: 2em;
+                width:5em;
+            }
+
+            .close-btn{
+                position: absolute;
+                top:.5em;
+                right: -1em;
+            }
+                i:hover{
+                    cursor: pointer;
+                    color:$button-2;
+                }
+
+        }
+    }
+    
+}
+
+.recipe-directions-box{
+    margin: 2em 0 2em 0;
+
+    h3{
+        @include title-font; 
+         text-align: center;
+         padding:0;
+         margin:0;
+  }
+    ul{
+        padding:0;
+        margin:0;
+        li{
+            position: relative;
+            width:80%;
+            margin:auto;
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            p{
+                @include text-font;
+                line-height: 1em;
+                margin-right: 1em;
+            }
+            input{
+                height: 2em;
+                text-align: start;
+                padding-left:0.5em;
+                flex-grow: 1;
+            }
+            .close-btn{
+                position: absolute;
+                top:1em;
+                right: -1em;
+            }
+                i:hover{
+                    cursor: pointer;
+                    color:$button-2;
+                }
+
+        
+        }
+    }
+
+}
+
+.add-item-btn{
+    
+    position: relative;
+    height: 1em;
+    width:1em;
+    margin: 1em auto;
+    transition:.25s;
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px 5px rgba($color: black, $alpha: 0.25);
+    i{
+        color: $button-2;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10%;
+    }
+}
+
+.add-item-btn:hover{
+    box-shadow: 0 0 5px 5px $button-2-highlight;
+}
+
+.add-item-btn:hover > i{
+    color:$button-2-highlight;
+    
+}
+
+.text-input{
+    @include text-font;
+    font-size: 1em;
+    font-weight: 400;
+    height:2em;
+    border-radius: 5px;
+    border:none;
+    outline:none;
+    background: rgba($color: gray, $alpha: .15);
+    text-align: center;
+}
+
+
+
+
 //----------------------------------
-// Recipe Classes
+// Shopping list  Classes
 //----------------------------------
 
+.shopping-list{
+    width:500px;
+    right:-435px;
 
+    .list-container{
+        width: 75%;
+        height:800px;
+        margin:40px auto;
+        background-color: rgba($color: gray, $alpha: 0.25);
+        box-shadow: -2px -2px 3px 2px rgba($color: gray, $alpha: 0.25) inset, -1px -1px 1px 1px rgba($color: gray, $alpha: 0.5) inset ;
+        .list-item{
+            display: flex;
+            justify-content: space-between;
+            height: 3em;
+            border: 1px solid black;
+            background-color: #f7f7f7;
 
-//----------------------------------
-// Shoppinglist  Classes
-//----------------------------------
+            .item-name{
+                @include text-font;
+                border-right: 1px solid black;
+                flex-grow: 4;
+                p{
+                    text-transform: capitalize;
+                    margin-left: 1em;
+                }
+            }
+            .item-qnty{
+                @include text-font;
+                width: 60px;
+                text-align: center;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding-left: .5em;
+                border-right: 1px solid black;
+                p:first-of-type{
+                    margin-right: .25em;
+                }
+            }
+            .item-qnty:last-of-type{
+                border-right: none;
+            }
 
+        }
+        .list-item:nth-child(even){
+            background-color: rgba($color: rgb(241, 241, 241), $alpha: 0.2)
+        }
+    }
+    .download-btn{
+        position:absolute;
+        width:75%;
+        height:2em;
+        bottom: 40px;
+        left:50%;
+        transform: translate(-50%, 0);
+        @include button2;
+    }
 
+    .download-btn:hover{
+        @include button2-hover;
+    }
 
+}
 
 
 //----------------------------------
