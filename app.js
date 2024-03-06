@@ -33,13 +33,13 @@ const domModalClose = document.getElementById('modal-close');
 const domModalOpen = document.getElementById('add-recipe');
 const domRecipeAddIngr = document.getElementById('recipe-add-ingr');
 
-
+const domAddNewRecipe = document.getElementById('add-recipe-btn');
 
 //----------------------------------
 // Global Variables
 //----------------------------------
 
-let ingredientList = [
+let shoppingList = [
   { 'name' : 'onion',
     'qnty' : '3',
     'unit' : 'lbs'},
@@ -63,14 +63,7 @@ domRecipeButton.addEventListener('click', () => {
   toggleRecipeList();
 })
 
-//Collapsable recipes
-let coll = document.getElementsByClassName("recipe-item-top-bar");
-for (let index = 0; index < coll.length; index++) {
-  coll[index].addEventListener("click", function() {
-    let nextSib  = this.nextElementSibling; 
-    toggleRecipeCollapse(nextSib);
-  });
-} 
+
 
 //Filter Item Buttons
 let ingr = document.getElementsByClassName("filter-item");
@@ -107,6 +100,8 @@ domRecipeAddIngr.addEventListener('click', addRecipeIngr);
 document.getElementById('recipe-add-step').addEventListener('click', () =>{
   addRecipeStep();
 })
+
+domAddNewRecipe.addEventListener('click', addRecipe);
 
 
 //modal Open
@@ -249,7 +244,6 @@ function buildRecipeList(recipe){
   let recipeCalories = recipe.calories + " cal";
   let recipeCookDur = recipe.cookTime;
   let recipeIngredientList = recipe.ingredients;
-  let recipeDirections = recipe.directions;
   let recipeId= recipe.id;
 
  
@@ -269,6 +263,13 @@ function buildRecipeList(recipe){
     //Visible Recipe Bar
     let recipeItemTopBar = document.createElement('div');
     recipeItemTopBar.classList.add('recipe-item-top-bar');
+
+    recipeItemTopBar.addEventListener('click', ()=>{
+      let nextSib  = recipeItemTopBar.nextElementSibling; 
+      toggleRecipeCollapse(nextSib);
+    })
+
+
     recipeMaster.append(recipeItemTopBar);
       //Recipe Name
       let recipeItemName = document.createElement('p');
@@ -507,7 +508,7 @@ let ingredients = ["manwich-sauce", [0.5, "can"]];
 addIngredientToShoppingList(ingredients);
 addIngredientToShoppingList(ingredients);
 
-
+//Adds ingredient into shopping list, input format = ["ingredient", [quantity, Unit of measure]]
 function addIngredientToShoppingList(arrIngr){
   //When item is added, it goes through this first
   //Checks if ingr is in IngredientList. If the item is on the list, add the amount in recipe to the list item.
@@ -520,30 +521,30 @@ function addIngredientToShoppingList(arrIngr){
   let ingrBool ;
 
   //Search the ingredient List for ingredient. If on it, sets the bool to true.
-ingredientList.forEach(element => {
+  shoppingList.forEach(element => {
   if(element.hasOwnProperty(ingrName)){
     ingrBool = true;
   }
 });
 
+//if ingr in list, then finds it, and adds the Qnty together. 
   if(ingrBool){
-
-    //finds the location of the ingredient in the ingredient
+    //Adds the ingredient together
     console.log('ingredient already on list');
 
-  
+    //in ingr not on list, adds it
   }else{
     let newIngredient = {};
 
     newIngredient[ingrName] = ingrQnty;
     newIngredient['unit'] = ingrUnit;
-    ingredientList.push(newIngredient);
+    shoppingList.push(newIngredient);
     console.log('Ingredient Added');
 
     buildShoppingListItem(ingrName, ingrQnty, ingrUnit);
   }
 
-  console.log(ingredientList);
+  console.log(shoppingList);
 }
 
 //removes all ingredients from a recipe. also adds 
@@ -552,7 +553,9 @@ function removeIngredientFromList(arrIngr){
   let ingrName = arrIngr[0];
   let ingrQnty = arrIngr[1][0];
   let ingrUnit = arrIngr[1][1];
-/*
+  let ingrArrIndex ;
+
+  /*
   let ingredientList = [
     { 'name' : 'onion',
       'qnty' : '3',
@@ -579,9 +582,6 @@ function removeIngredientFromList(arrIngr){
   //push ingredient back into array //if there is 0 or less of the ingredient remaining, don't re-add
 
 
-
-  
-
 }
 
 
@@ -593,9 +593,96 @@ function addRecipe(){
 
   //takes all the inputted information that is in modal form
   //parses it into Obj format, then pushes to the Recipe book
+let newRecipe = {};
 
+let modalName = document.getElementById('m-recipe-name');
+let modalCalories = document.getElementById('m-recipe-calories');
+let modalCooktime = document.getElementById('m-recipe-cook-time');
 
+let modalIngredientBox = document.getElementById('recipe-ingredient-box-list');
+let modalDirectionBox = document.getElementById('recipe-directions-box-list');
+
+//RecipeId
+newRecipe['id'] = modalName.value.replace(/\s+/g, '-').toLowerCase();
+
+newRecipe['name'] =  modalName.value.toLowerCase();
+
+newRecipe['calories'] = modalCalories.value;
+
+newRecipe['cookTime'] = modalCooktime.value;
+
+newRecipe['ingredients'] = []
+//find all instances of <li class="m-recipe-ingredient"> in <ul id="recipe-ingredient-box-list">
+//[ingr-name, [ingr-qnty, ele.options[e.selectedIndex].value]]
+let objArrRecipeIngr = modalIngredientBox.getElementsByClassName('m-recipe-ingredient');
+let arrRecipeIngr = Array.from(objArrRecipeIngr);
+//console.log(arrRecipeIngr);
+
+arrRecipeIngr.forEach(element => {
+
+  let newIngredient = [];
+  newIngredient.push(element.getElementsByClassName('ingr-name')[0].value);
+
+  let newIngredientQnty = []
+  newIngredientQnty.push(element.getElementsByClassName('ingr-qnty')[0].value);
+  newIngredientQnty.push(element.getElementsByClassName('ingr-unit')[0].value);
+
+  //put together all the values into one array
+  newIngredient.push(newIngredientQnty);
+  newRecipe['ingredients'].push(newIngredient)
+
+});
+
+newRecipe['link'] = document.getElementById('m-recipe-link').value;
+console.log(newRecipe);
+//Adds the new recipe into the Recipe Book
+recipeBook.push(newRecipe);
+console.log(recipeBook[0]);
+console.log(newRecipe);
+buildRecipeList(newRecipe);
+
+console.log(recipeBook);
+clearAddRecipe();
 }
+
+
+
+//Clears the AddRecipe Modal, empties all boxes, deletes all, but one ingr/dir
+function clearAddRecipe(){
+  let modalName = document.getElementById('m-recipe-name');
+let modalCalories = document.getElementById('m-recipe-calories');
+let modalCooktime = document.getElementById('m-recipe-cook-time');
+
+let modalIngredientBox = document.getElementById('recipe-ingredient-box-list');
+let modalDirectionBox = document.getElementById('recipe-directions-box-list');
+
+  modalName.value = ''
+  modalCalories.value = '';
+  modalCooktime.value = '';
+//finds number of instruction elements. removes all but first
+  removeChildren(modalIngredientBox);
+  removeChildren(modalDirectionBox);
+
+  modalIngredientBox.getElementsByClassName('ingr-name')[0].value = '';
+  modalIngredientBox.getElementsByClassName('ingr-qnty')[0].value = '';
+  modalIngredientBox.getElementsByClassName('ingr-unit')[0].value = 'unit';
+}
+
+
+
+//Removes all but the first child of the parentElement
+function removeChildren(parentElement){
+  //finds length of parentelement
+  let length = parentElement.children.length;
+  //while length is > 1 --keep first child, delete rest
+  while( length > 1){
+    parentElement.removeChild(parentElement.lastElementChild);
+    length--
+  }
+}
+
+
+
 
 let arrUnits = ['units', 'lbs', 'oz', 'fl.oz','cans','cups','ts', 'tbs', 'kg', 'g', 'mg', 'mL', 'L' ]
 
@@ -605,6 +692,7 @@ function addRecipeIngr(){
 
 
   let liIngredient = document.createElement('li');
+  liIngredient.classList.add('m-recipe-ingredient')
   ul.append(liIngredient);
 
   let ingrName = document.createElement('input')

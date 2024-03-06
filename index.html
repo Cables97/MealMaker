@@ -263,7 +263,7 @@
         
         <div class="modal">
 
-            <div class="close-btn" id="modal-close">
+            <div class="close-modal-btn" id="modal-close">
                 <i class="fa-regular fa-circle-xmark fa-xl"></i>
             </div>
 
@@ -271,18 +271,18 @@
 
             <div class="input-field">
                 <label for="recipe-name"> Recipe Name:</label>
-                <input type="text" name="recipe-name" class="recipe-name-input text-input" id="recipe-name">
+                <input type="text" name="recipe-name" class="recipe-name-input text-input" id="m-recipe-name">
             </div>
 
             <div class="inline">
                 <div class="input-field">
                     <label for="recipe-calories"> Calories:</label>
-                    <input type="text" name="recipe-calories" id="recipe-calories" class="text-input" placeholder="000">
+                    <input type="text" name="recipe-calories" id="m-recipe-calories" class="text-input" placeholder="000">
                 </div>
 
                 <div class="input-field">
                     <label for="recipe-cook-time"> Cook Time:</label>
-                    <input type="text" name="recipe-cook-time" id="recipe-cook-time" class="text-input" placeholder="in minutes...">
+                    <input type="text" name="recipe-cook-time" id="m-recipe-cook-time" class="text-input" placeholder="in minutes...">
                 </div>
             </div>
 
@@ -296,17 +296,14 @@
                 </div>
 
                 <ul id="recipe-ingredient-box-list">
-                    <li>
+                    <li class="m-recipe-ingredient">
                         <input class='ingr-name text-input' type="text" placeholder="Ingredient Name...">
                         <input class="ingr-qnty text-input" type="text" placeholder="0.0">
 
                         <select class="ingr-unit text-input">
                             <option value="unit">units</option>
+                            <option value="pizza">pizza</option>
                         </select>
-
-                        <div class="close-btn">
-                            <i class="fa-regular fa-circle-xmark"></i>
-                        </div>
 
                     </li>
                 </ul>
@@ -319,21 +316,33 @@
             <div class="recipe-directions-box">
                 <h3>Instructions</h3>
                 <ul id="recipe-directions-box-list">
+
+
                     <li class="step">
                         <p>Step 1:</p>
-                        <input class="text-input step" type="text" name="step1" id="step1" placeholder="Type instructions here...">
+                        <input class="text-input dir" type="text" name="step1" id="step1" placeholder="Type instructions here...">
                         <div class="close-btn">
                             <i class="fa-regular fa-circle-xmark"></i>
                         </div>
                     </li>
+
+
+
+
                 </ul>
+
+
                 <div class="add-item-btn" id="recipe-add-step">
                     <i class="fa-solid fa-square-plus fa-2x"></i>
                 </div>
             </div>
 
+            <div class="input-field">
+                <label for="recipe-link"> Recipe Link:</label>
+                <input type="text" name="recipe-link" class="recipe-name-input text-input" id="m-recipe-link" placeholder="External recipe link...">
+            </div>
 
-            <button class="download-btn">Add Item</button>
+            <button id='add-recipe-btn' class="download-btn">Add Item</button>
         </div>
         <div class="modal-bg"></div>
 
