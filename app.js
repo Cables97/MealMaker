@@ -17,13 +17,20 @@ console.log(recipeBook);
 //----------------------------------
 // DOM Variables
 //----------------------------------
+
+//page buttons
+
+const domRecipeButton = document.getElementById('recipe-tab');
+const domShoppingListButton = document.getElementById('shopping-tab');
+const domSettingsButton = document.getElementById('settings-tab')
+
 const domRecipeList = document.getElementById('recipe-list')
-const domRecipeButton = document.getElementById('recipe-open-btn');
+
 const domRecipeContainer = document.getElementById('recipe-container');
 
 
 const domShoppingList = document.getElementById('shopping-list');
-const domShoppingListButton = document.getElementById('s-l-open-btn');
+
 
 
 const domAddRecipe = document.getElementById('add-recipe');
@@ -45,6 +52,9 @@ let shoppingList = [
     'unit' : 'lbs'},
 ];
 
+let arrUnits = ['lbs', 'oz', 'fl.oz','cups','ts', 'tbs', 'kg', 'g', 'mg', 'mL', 'L' ]
+
+let calorieGoal = 1500; 
 
 buildRecipeList(recipeBook[0]);
 buildRecipeList(recipeBook[1]);
@@ -56,11 +66,13 @@ buildRecipeList(recipeBook[1]);
 
 //SideBar Buttons
 domShoppingListButton.addEventListener('click', () => {
-  toggleShoppingList();
+  togglePage('shopping');
 })
-
 domRecipeButton.addEventListener('click', () => {
-  toggleRecipeList();
+  togglePage('recipe');
+})
+domSettingsButton.addEventListener('click', ()=>{
+  togglePage('settings');
 })
 
 
@@ -86,15 +98,6 @@ for (let index = 0; index < dragDrop.length; index++) {
   });
 } 
 
-//draggable Elements
-/*let grabObjs = document.getElementsByClassName('draggable');
-for (let index = 0; index < grabObjs.length; index++) {
-  grabObjs[index].addEventListener("dragstart", (event) => {
-    console.log('drag');
-    drag(event)
-  });
-} */
-
 domRecipeAddIngr.addEventListener('click', addRecipeIngr);
 
 document.getElementById('recipe-add-step').addEventListener('click', () =>{
@@ -103,7 +106,6 @@ document.getElementById('recipe-add-step').addEventListener('click', () =>{
 
 domAddNewRecipe.addEventListener('click', addRecipe);
 
-
 //modal Open
 domModalClose.addEventListener('click', toggleModal);
 domModalOpen.addEventListener('click', toggleModal);
@@ -111,44 +113,66 @@ domModalOpen.addEventListener('click', toggleModal);
 //----------------------------------
 // Toggle Functions
 //----------------------------------
+//Swaps between pages on side menu
+function togglePage(target){
+  let domTopPage = document.getElementById('side-menu').getElementsByClassName('top')[0];
+  let domMidPage = document.getElementById('side-menu').getElementsByClassName('mid')[0];
+  let domTarget = document.getElementById(target);
+  //disable buttons **Was running into problems where clicking between tabs too fast would mess with the... 
+  //class changing. Disabling the pointer events at the start of the function is an easy workaround.
+  domRecipeButton.style.pointerEvents = "none";
+  domSettingsButton.style.pointerEvents = "none";
+  domShoppingListButton.style.pointerEvents = "none";
 
-//Opens Shopping List
-function toggleShoppingList(){
-    if (domShoppingList.classList.contains('s-l-open')){
-      domShoppingList.classList.remove('s-l-open')
-      domShoppingList.classList.add('s-l-close')
-
-      domShoppingListButton.classList.add('rec-close')
-      domShoppingListButton.classList.add('btn-rotate-close')
-
-    }else{
-      domShoppingList.classList.remove('s-l-close')
-      domShoppingList.classList.add('s-l-open')
-
-      domShoppingListButton.classList.add('btn-rotate-open')
-      domShoppingListButton.classList.remove('btn-rotate-close')
-    }
-}
-
-//Opens Recipe List
-function toggleRecipeList(){
-  domRecipeButton.offsetWidth;
-  if (domRecipeList.classList.contains('rec-open')){
-    domRecipeList.classList.remove('rec-open')
-    domRecipeButton.classList.remove('btn-rotate-open')
-
-    domRecipeList.classList.add('rec-close')
-    domRecipeButton.classList.add('btn-rotate-close')
-
-  }else{
-    domRecipeList.classList.remove('rec-close')
-    domRecipeList.classList.add('rec-open')
+  if(!domTarget.classList.contains('top')){
+    console.log('clicked page: ' + target);
+    domTarget.preventDefault;
+    let domRecipePage = document.getElementById('recipe');
+    let domListPage = document.getElementById('shopping');
+    let domSettings = document.getElementById('settings');
+    console.log(domTopPage);
+    //clicking on target removes page-shift from all tabs
+    domRecipePage.classList.remove('page-shift');
+    domListPage.classList.remove('page-shift');
+    domSettings.classList.remove('page-shift');
+    domTarget.offsetWidth;
+    domTarget.classList.add('page-shift');
     
-    domRecipeButton.classList.add('btn-rotate-open')
-    domRecipeButton.classList.remove('btn-rotate-close')
+  //wait until page is hidden, then change the top/mid/bot classes between top/target
 
-  }
+  setTimeout(() => {
+    if(domTarget.classList.contains('bot')){
+      console.log('swapped bot')
+      domTarget.classList.remove('bot');
+      domTarget.classList.add('top');
+
+      domTopPage.classList.remove('top');
+      domTopPage.classList.add('mid');
+
+      domMidPage.classList.remove('mid');
+      domMidPage.classList.add('bot')
+
+    } else if(domTarget.classList.contains('mid')){
+      console.log('swapped Mid')
+      domTarget.classList.remove('mid');
+      domTarget.classList.add('top');
+
+      domTopPage.classList.remove('top')
+      domTopPage.classList.add('mid');
+    } else {
+      console.log('error- check classes');
+    }
+    //enable buttons again
+    domRecipeButton.style.pointerEvents = "all";
+    domSettingsButton.style.pointerEvents = "all";
+    domShoppingListButton.style.pointerEvents = "all";
+  }, 500);
+    }else{
+      console.log('clicked top page')
+    }
+
 }
+
 
 //Collapsable recipe info
 function toggleRecipeCollapse(collapse){
@@ -169,8 +193,6 @@ function toggleModal(){
   }
 }
 
-
-
 //change filter items from Include => Exclude => None
 function toggleFilterItems(el){
   if (el.classList.contains('f-i-include')) {
@@ -181,6 +203,14 @@ function toggleFilterItems(el){
       } else{
         el.classList.add('f-i-include');
       }
+}
+
+function triggerErrorPrompt(errorMsg){
+  //popup in corner of screen
+}
+
+function triggerCursorErrorMessage(errorMsg){
+  //small pop up offset from cursor, 1em diag. Fades after 10sec.
 }
 
 
@@ -209,7 +239,7 @@ function toggleFilterItems(el){
 // Drag n Drop Functions
 //----------------------------------
 
-let grabbedObj;
+let grabbedObj; 
 
 function allowDrop(even) {
   even.preventDefault();
@@ -223,9 +253,15 @@ function drag(even) {
 
 function drop(event) {
   if(event.target.classList.contains('drag-drop')){
-    let newRecipe = recipeBook.find(o => o.id === grabbedObj);
-    console.log(newRecipe);
-    buildCalenderItem(event.target, newRecipe);
+    if(event.target.getElementsByClassName('calendar-item').length < 3){
+      let newRecipe = recipeBook.find(o => o.id === grabbedObj);
+      console.log(newRecipe);
+      buildCalenderItem(event.target, newRecipe);
+      updateDailyCalories(event.target);
+    } else {
+      console.log("Only 3 recipes allowed");
+      console.log()
+    }
   } else {
     console.log("Can't drop item here")
   }
@@ -342,6 +378,7 @@ function buildRecipeList(recipe){
 }
 
 function buildCalenderItem(parent, recipe){
+  
   let recipeName = recipe.name;
   let recipeCalories = recipe.calories + " cal";
   let recipeCookDur = recipe.cookTime;
@@ -349,11 +386,9 @@ function buildCalenderItem(parent, recipe){
   let recipeDirections = recipe.directions;
   let recipeLink = recipe.link;
 
-
- 
  //Calender Item Recipe Box
   let divCalenderItem = document.createElement("div");
-  divCalenderItem.classList.add('calender-item');
+  divCalenderItem.classList.add('calendar-item');
   divCalenderItem.classList.add('draggable');
   divCalenderItem.draggable = 'true';
   parent.append(divCalenderItem);
@@ -366,14 +401,18 @@ function buildCalenderItem(parent, recipe){
       //Item name
       let pItemName = document.createElement('p');
       pItemName.innerHTML = recipeName;
+      pItemName.classList.add('recipe-name')
       divTitleWrapper.append(pItemName);
 
       //close
       let divCloseBtn = document.createElement('div');
       divCloseBtn.classList.add('close-btn');
       divCloseBtn.addEventListener('click', () =>{
+        
         divCloseBtn.parentElement.parentElement.remove()
+        updateDailyCalories(parent)
       })
+
       divTitleWrapper.append(divCloseBtn);
 
 
@@ -384,10 +423,6 @@ function buildCalenderItem(parent, recipe){
         iCloseBtn.classList.add('fa-lg');
         divCloseBtn.append(iCloseBtn);
       
-
-
-
-
   //ToolTip
   let divToolTip = document.createElement('div');
   divToolTip.classList.add('tool-tip');
@@ -452,10 +487,48 @@ function buildCalenderItem(parent, recipe){
             recipeIngredient.append(recipeIngredientAmnt);
     });
 
-
 }
 
-//creates ShoppingListItem
+//Adds ingredient into shopping list, input format = ["ingredient", [quantity, Unit of measure]]
+function addIngredientToShoppingList(arrIngr){
+  //When item is added, it goes through this first
+  //Checks if ingr is in IngredientList. If the item is on the list, add the amount in recipe to the list item.
+  //if item is in list: add value to qnty;
+  //if item is not in list. Adds item to list, and put item through the buildShoppingListItem;
+
+  let ingrName = arrIngr[0];
+  let ingrQnty = arrIngr[1][0];
+  let ingrUnit = arrIngr[1][1];
+  let ingrBool ;
+
+  //Search the ingredient List for ingredient. If on it, sets the bool to true.
+  shoppingList.forEach(element => {
+  if(element.hasOwnProperty(ingrName)){
+    ingrBool = true;
+  }
+});
+
+//if ingr in list, then finds it, and adds the Qnty together. 
+  if(ingrBool){
+    //Adds the ingredient together
+    console.log('ingredient already on list');
+
+    //in ingr not on list, adds it
+  }else{
+    let newIngredient = {};
+
+    newIngredient[ingrName] = ingrQnty;
+    newIngredient['unit'] = ingrUnit;
+    shoppingList.push(newIngredient);
+    console.log('Ingredient Added');
+
+    buildShoppingListItem(ingrName, ingrQnty, ingrUnit);
+  }
+
+  console.log(shoppingList);
+}
+
+//creates ShoppingListItem in DOM
 function buildShoppingListItem(name, amount, unit){
   //when item is dropped on calc. Adds the ingr. 
   let domShoppingList = document.getElementById('shopping-list-container')
@@ -501,52 +574,6 @@ function buildShoppingListItem(name, amount, unit){
   
 }
 
-
-
-let ingredients = ["manwich-sauce", [0.5, "can"]];
-
-addIngredientToShoppingList(ingredients);
-addIngredientToShoppingList(ingredients);
-
-//Adds ingredient into shopping list, input format = ["ingredient", [quantity, Unit of measure]]
-function addIngredientToShoppingList(arrIngr){
-  //When item is added, it goes through this first
-  //Checks if ingr is in IngredientList. If the item is on the list, add the amount in recipe to the list item.
-  //if item is in list: add value to qnty;
-  //if item is not in list. Adds item to list, and put item through the buildShoppingListItem;
-
-  let ingrName = arrIngr[0];
-  let ingrQnty = arrIngr[1][0];
-  let ingrUnit = arrIngr[1][1];
-  let ingrBool ;
-
-  //Search the ingredient List for ingredient. If on it, sets the bool to true.
-  shoppingList.forEach(element => {
-  if(element.hasOwnProperty(ingrName)){
-    ingrBool = true;
-  }
-});
-
-//if ingr in list, then finds it, and adds the Qnty together. 
-  if(ingrBool){
-    //Adds the ingredient together
-    console.log('ingredient already on list');
-
-    //in ingr not on list, adds it
-  }else{
-    let newIngredient = {};
-
-    newIngredient[ingrName] = ingrQnty;
-    newIngredient['unit'] = ingrUnit;
-    shoppingList.push(newIngredient);
-    console.log('Ingredient Added');
-
-    buildShoppingListItem(ingrName, ingrQnty, ingrUnit);
-  }
-
-  console.log(shoppingList);
-}
-
 //removes all ingredients from a recipe. also adds 
 function removeIngredientFromList(arrIngr){
 
@@ -586,7 +613,7 @@ function removeIngredientFromList(arrIngr){
 
 
 //----------------------------------
-// Functional Functions
+// Modal Functions
 //----------------------------------
 
 function addRecipe(){
@@ -633,6 +660,11 @@ arrRecipeIngr.forEach(element => {
 
 });
 
+
+
+
+
+
 newRecipe['link'] = document.getElementById('m-recipe-link').value;
 console.log(newRecipe);
 //Adds the new recipe into the Recipe Book
@@ -644,8 +676,6 @@ buildRecipeList(newRecipe);
 console.log(recipeBook);
 clearAddRecipe();
 }
-
-
 
 //Clears the AddRecipe Modal, empties all boxes, deletes all, but one ingr/dir
 function clearAddRecipe(){
@@ -668,8 +698,6 @@ let modalDirectionBox = document.getElementById('recipe-directions-box-list');
   modalIngredientBox.getElementsByClassName('ingr-unit')[0].value = 'unit';
 }
 
-
-
 //Removes all but the first child of the parentElement
 function removeChildren(parentElement){
   //finds length of parentelement
@@ -680,11 +708,6 @@ function removeChildren(parentElement){
     length--
   }
 }
-
-
-
-
-let arrUnits = ['units', 'lbs', 'oz', 'fl.oz','cans','cups','ts', 'tbs', 'kg', 'g', 'mg', 'mL', 'L' ]
 
 //Modal - Adds space for ingredient input in AddRecipe Modal
 function addRecipeIngr(){
@@ -733,6 +756,7 @@ function addRecipeIngr(){
     iCloseBtn.classList.add('fa-circle-xmark');
     divCloseBtn.append(iCloseBtn);
 }
+
 //Modal - Adds space for directions input in AddRecipe Modal
 function addRecipeStep(){
   let ul = document.getElementById('recipe-directions-box-list');
@@ -775,3 +799,39 @@ function addRecipeStep(){
 
 }
 
+
+//----------------------------------
+// Update Functions
+//----------------------------------
+
+
+function updateDailyCalories(parent){
+  //when adding or deleting item from calendar. Call this function right after.
+  //takes the cal count of all calendar items. adds them together. If over daily limit, style='red', if within 200 cal under green, if more than 300 under orange 
+  let domCalCounter = parent.getElementsByClassName('day-border')[0].getElementsByClassName('day-cal')[0].getElementsByClassName('cal-count')[0];
+  let elements = parent.getElementsByClassName('calendar-item');
+  let arrElements = Array.from(elements);
+  let calorieCount = 0;
+  //for each element (in the day parent), find the calorie count, then add it to calorieCount.
+  arrElements.forEach(el => {
+    //find element name//find element in the array.//find the element's calories//add calories calorieCount
+    let elName = el.getElementsByClassName('recipe-name')[0].innerHTML
+    let newRecipe = recipeBook.find(r => r.name === elName);
+    let recipeCal = newRecipe.calories;
+    console.log(recipeCal);
+    calorieCount = calorieCount + recipeCal
+  });
+  //set calorie count
+  domCalCounter.innerHTML = calorieCount;
+
+  if(calorieCount > calorieGoal){
+    domCalCounter.style.color = 'red'
+
+  }else if( (calorieGoal - 200) < calorieCount && calorieCount <= calorieGoal){
+    domCalCounter.style.color = 'green'
+  }
+  else{
+    domCalCounter.style.color = 'black'
+  }
+
+}

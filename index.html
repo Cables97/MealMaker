@@ -25,333 +25,507 @@
     </header>
 
 <main>
-    <!-- Main Calender Wrapper -->
-    <div class="calender-wrapper">
- 
-        <div class="week-labels">
-            <p>Sunday</p>
-            <p>Monday</p>
-            <p>Tuesday</p>
-            <p>Wednesday</p>
-            <p>Thursday</p>
-            <p>Friday</p>
-            <p>Saturday</p>
-        </div>
-
-        <!--4 Total weeks. Only 1 placeholder to reduce clutter when working.-->
-        <div class="week">
-
-            <div class="day drag-drop">
-                <p class="day-border">Sun</p>
-            </div>
-
-            <div id='mon-1' class="day drag-drop">
-                <p class="day-border">Mon</p>
-            </div>
-
-            <div class="day drag-drop">
-                <p class="day-border">Tues</p>
-            </div>
-
-            <div class="day drag-drop">
-                <p class="day-border">Wed</p>
-            </div>
-
-            <div class="day drag-drop">
-                <p class="day-border">Thurs</p>
-            </div>
-
-            <div class="day drag-drop">
-                <p class="day-border">Fri</p>
-            </div>
-
-            <div class="day drag-drop">
-                <p class="day-border">Sat</p>
-            </div>
-        </div>
-
-        
-
-    </div>
-
-    <!--Recipe Bar-->
-    <div class="side-bar recipes active" id="recipe-list">
-        <h1 class="subtitle sub-left">Recipes</h1>
-
-        <!--Slider Btn-->
-        <div class="close-btn-wrapper left" id="recipe-open-btn">
-            <i class="fa-solid fa-chevron-right" id="r-btn-img"></i>
-        </div>
-
-        <!--Side Bar-->
-        <div class="recipe-side-bar">
-
-            
-            <div class="filter-item-add" id="add-recipe">
-                <i class="fa-solid fa-square-plus fa-xl"></i>
-                <p>Add Item</p>
-            </div>
-
-
-
-            <div class="filter-item">
-                <i class="fa-solid fa-drumstick-bite fa-xl"></i>
-                <p>Chicken</p>
-            </div>
-            <div class="filter-item">
-                <i class="fa-solid fa-fish-fins fa-xl"></i>
-                <p>Seafood</p>
-            </div>
-
-            <div class="filter-item">
-                <i class="fa-solid fa-cheese fa-xl"></i>
-                <p>Dairy</p>
-            </div>
-
-            
-
-
-            <div class="filter-item">
-                <i class="fa-solid fa-cow fa-xl"></i>
-                <p>Beef</p>
-            </div>
-
-            
-            <div class="filter-item">
-                <i class="fa-solid fa-bacon fa-xl"></i>
-                <p>Pork</p>
-            </div>
-
-            
-            <div class="filter-item">
-                <i class="fa-solid fa-egg fa-xl"></i>
-                <p>Egg</p>
-            </div>
-
-            <div class="filter-item">
-                <i class="fa-solid fa-wheat-awn fa-xl"></i>
-                <p>Wheat</p>
-            </div>      
-            
-            <div class="filter-item">
-                <i class="fa-solid fa-bowl-rice fa-xl"></i>
-                <p>Rice</p>
-            </div>
-
-            <div class="filter-item">
-                <i class="fa-solid fa-carrot fa-xl"></i>
-                <p>Vegetable</p>
-            </div>
-
-            <div class="filter-item">
-                <i class="fa-solid fa-apple-whole fa-xl"></i>
-                <p>Fruit</p>
-            </div>
-
-            <div class="filter-item">
-                <img src="./src/mushroom.png" alt="">
-                <p>Mushrooms</p>
-            </div>
-
-            <div class="filter-item">
-                <i class="fa-solid fa-pepper-hot fa-xl"></i>
-                <p>Spice</p>
-            </div>            
-
-            <div class="filter-item">
-                <i class="fa-solid fa-stroopwafel fa-xl"></i>
-                <p>Dessert</p>
-            </div>
-
-
-
-            <div class="filter-item">
-                <i class="fa-solid fa-mug-saucer fa-xl"></i>
-                <p>Beverages</p>
-            </div>
-
-        </div>
-
-
-        
-
-        <!--Recipe Container-->
-        <div class="recipe-container" id="recipe-container">
-
-            <!--Recipe top bar-->
-            <div class="recipe-top-bar">
-                <input type="text" name="search" class='filter-search' placeholder="Search.."> 
-            </div>
-
-        </div>
-
-        <div class="recipe-bottom-bar">
-            <div class="save-load-btn save"><p>Save</p></div>
-            <div class="save-load-btn load"><p>Upload</p></div> 
-        </div>
-
-
-    </div>
-
-    <!--ShoppingList Bar-->
-    <div class="side-bar shopping-list active" id="shopping-list">
-        <h1 class="subtitle sub-right" id="shopping-list-title">Shopping list</h1>
-        
-        <!--Slider Btn-->
-        <div class="close-btn-wrapper right" id="s-l-open-btn">
-            <i class="fa-solid fa-chevron-left" id="s-l-btn-img"></i>
-        </div>
-
-        <!--Shopping List-->
-        <div class="list-container" id="shopping-list-container">
-            <div class="list-item">
-                <div class="item-name">
-                    <p>name</p>
-                </div>
-                <div class="item-qnty">
-                    <p>Metric</p>
-                </div>
-                <div class="item-qnty">
-                    <p>U.S.A.</p>
-                </div>
-
-            </div>
-
-
-            <div class="list-item">
-                <div class="item-name">
-                    <p>Onion</p>
-                </div>
-                <div class="item-qnty">
-                    <p>3</p>
-                </div>
-                <div class="item-qnty">
-                    <p>3</p>
-                </div>
-
-            </div>
-
-            <div class="list-item">
-                <div class="item-name">
-                    <p>Potato</p>
-                </div>
-                <div class="item-qnty">
-                    <p>3</p>
-                </div>
-            </div>
-
-            <div class="list-item">
-                <div class="item-name">
-                    <p>Carrot</p>
-                </div>
-                <div class="item-qnty">
-                    <p>3</p>
-                </div>
-            </div>
-
-
-        </div>
-
-        <!--Shopping List Download-->
-        <button class="download-btn">Download List</button>
-
-
-
-    </div>
-
-    <div class="add-recipe-modal" id="modal">
-        
-        <div class="modal">
-
-            <div class="close-modal-btn" id="modal-close">
-                <i class="fa-regular fa-circle-xmark fa-xl"></i>
-            </div>
-
-            <h1>Add Recipe</h1>
-
-            <div class="input-field">
-                <label for="recipe-name"> Recipe Name:</label>
-                <input type="text" name="recipe-name" class="recipe-name-input text-input" id="m-recipe-name">
-            </div>
-
-            <div class="inline">
-                <div class="input-field">
-                    <label for="recipe-calories"> Calories:</label>
-                    <input type="text" name="recipe-calories" id="m-recipe-calories" class="text-input" placeholder="000">
-                </div>
-
-                <div class="input-field">
-                    <label for="recipe-cook-time"> Cook Time:</label>
-                    <input type="text" name="recipe-cook-time" id="m-recipe-cook-time" class="text-input" placeholder="in minutes...">
-                </div>
-            </div>
-
-
-            <div class="recipe-ingredient-box">
-                <h3>Ingredients</h3>
-                <div class="recipe-ingr-box-topline">
-                        <p>Name</p>
-                        <p>Quantity</p>
-                        <p>Unit</p>
-                </div>
-
-                <ul id="recipe-ingredient-box-list">
-                    <li class="m-recipe-ingredient">
-                        <input class='ingr-name text-input' type="text" placeholder="Ingredient Name...">
-                        <input class="ingr-qnty text-input" type="text" placeholder="0.0">
-
-                        <select class="ingr-unit text-input">
-                            <option value="unit">units</option>
-                            <option value="pizza">pizza</option>
-                        </select>
-
-                    </li>
-                </ul>
-
-                <div class="add-item-btn" id="recipe-add-ingr">
-                    <i class="fa-solid fa-square-plus fa-2x"></i>
-                </div>
-            </div>
-
-            <div class="recipe-directions-box">
-                <h3>Instructions</h3>
-                <ul id="recipe-directions-box-list">
-
-
-                    <li class="step">
-                        <p>Step 1:</p>
-                        <input class="text-input dir" type="text" name="step1" id="step1" placeholder="Type instructions here...">
-                        <div class="close-btn">
-                            <i class="fa-regular fa-circle-xmark"></i>
-                        </div>
-                    </li>
-
-
-
-
-                </ul>
-
-
-                <div class="add-item-btn" id="recipe-add-step">
-                    <i class="fa-solid fa-square-plus fa-2x"></i>
-                </div>
-            </div>
-
-            <div class="input-field">
-                <label for="recipe-link"> Recipe Link:</label>
-                <input type="text" name="recipe-link" class="recipe-name-input text-input" id="m-recipe-link" placeholder="External recipe link...">
-            </div>
-
-            <button id='add-recipe-btn' class="download-btn">Add Item</button>
-        </div>
-        <div class="modal-bg"></div>
-
-    </div>
-
+    <div class="content">
+        <!-- Main Calender Wrapper -->
+        <div class="calendar-wrapper">
     
+            <div class="week-labels">
+                <p>Sunday</p>
+                <p>Monday</p>
+                <p>Tuesday</p>
+                <p>Wednesday</p>
+                <p>Thursday</p>
+                <p>Friday</p>
+                <p>Saturday</p>
+            </div>
+
+            <!--4 Total weeks. Only 1 placeholder to reduce clutter when working.-->
+            <div class="week">
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sun</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div id='mon-1' class="day drag-drop">
+                    <div class="day-border">
+                        <p>Mon</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Tues</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Wed</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Thurs</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Fri</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sat</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="week">
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sun</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div id='mon-1' class="day drag-drop">
+                    <div class="day-border">
+                        <p>Mon</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Tues</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Wed</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Thurs</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Fri</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sat</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="week">
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sun</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div id='mon-1' class="day drag-drop">
+                    <div class="day-border">
+                        <p>Mon</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Tues</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Wed</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Thurs</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Fri</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sat</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="week">
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sun</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div id='mon-1' class="day drag-drop">
+                    <div class="day-border">
+                        <p>Mon</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Tues</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Wed</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Thurs</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Fri</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+
+                <div class="day drag-drop">
+                    <div class="day-border">
+                        <p>Sat</p>
+                        <p class="day-cal">Cal: <span class="cal-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="side-menu-wrapper" id="side-menu">
+            <!--RecipeBook-->
+            <div class="side-menu-page top" id="recipe">
+                <div class="tab-1" id='recipe-tab'>
+                    <div class="tab">Recipes</div>
+                </div>    
+
+                <div class="side-menu-page-content recipes">
+
+                    <div class="recipe-side-bar">
+
+                        
+                        <div class="filter-item-add" id="add-recipe">
+                            <i class="fa-solid fa-square-plus fa-xl"></i>
+                            <p>Add Item</p>
+                        </div>
+
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-drumstick-bite fa-xl"></i>
+                            <p>Chicken</p>
+                        </div>
+                        <div class="filter-item">
+                            <i class="fa-solid fa-fish-fins fa-xl"></i>
+                            <p>Seafood</p>
+                        </div>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-cheese fa-xl"></i>
+                            <p>Dairy</p>
+                        </div>
+
+                        
+
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-cow fa-xl"></i>
+                            <p>Beef</p>
+                        </div>
+
+                        
+                        <div class="filter-item">
+                            <i class="fa-solid fa-bacon fa-xl"></i>
+                            <p>Pork</p>
+                        </div>
+
+                        
+                        <div class="filter-item">
+                            <i class="fa-solid fa-egg fa-xl"></i>
+                            <p>Egg</p>
+                        </div>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-wheat-awn fa-xl"></i>
+                            <p>Wheat</p>
+                        </div>      
+                        
+                        <div class="filter-item">
+                            <i class="fa-solid fa-bowl-rice fa-xl"></i>
+                            <p>Rice</p>
+                        </div>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-carrot fa-xl"></i>
+                            <p>Vegetable</p>
+                        </div>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-apple-whole fa-xl"></i>
+                            <p>Fruit</p>
+                        </div>
+
+                        <div class="filter-item">
+                            <img src="./src/mushroom.png" alt="">
+                            <p>Mushrooms</p>
+                        </div>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-pepper-hot fa-xl"></i>
+                            <p>Spice</p>
+                        </div>            
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-stroopwafel fa-xl"></i>
+                            <p>Dessert</p>
+                        </div>
 
 
 
+                        <div class="filter-item">
+                            <i class="fa-solid fa-mug-saucer fa-xl"></i>
+                            <p>Beverages</p>
+                        </div>
+
+                    </div>
+
+                    <!--Recipe Container-->
+                    <div class="recipe-container" id="recipe-container">
+
+                        <!--Recipe top bar-->
+                        <div class="recipe-top-bar">
+                            <input type="text" name="search" class='filter-search' placeholder="Search.."> 
+                        </div>
+
+                    </div>
+
+                    <div class="recipe-bottom-bar">
+                        <div class="save-load-btn save" id="save-btn"><p>Save</p></div>
+                        <div class="save-load-btn load" id="load-btn"><p>Upload</p></div> 
+                    </div>
+
+                </div>
+            </div>
+
+            <!--ShoppingList-->
+            <div class="side-menu-page mid" id="shopping">
+                <div class="tab-2 " id="shopping-tab">
+                    <div class="tab">Shopping List</div>
+                </div>    
+
+                <div class="side-menu-page-content shopping-list" id="shopping-list">
+
+                    <div class="list-container" id="shopping-list-container">
+                        <div class="list-item">
+                            <div class="item-name">
+                                <p>name</p>
+                            </div>
+                            <div class="item-qnty">
+                                <p>Metric</p>
+                            </div>
+                            <div class="item-qnty">
+                                <p>U.S.A.</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="list-item">
+                            <div class="item-name">
+                                <p>Onion</p>
+                            </div>
+                            <div class="item-qnty">
+                                <p>3</p>
+                            </div>
+                            <div class="item-qnty">
+                                <p>3</p>
+                            </div>
+
+                        </div>
+
+                        <div class="list-item">
+                            <div class="item-name">
+                                <p>Potato</p>
+                            </div>
+                            <div class="item-qnty">
+                                <p>3</p>
+                            </div>
+                        </div>
+
+                        <div class="list-item">
+                            <div class="item-name">
+                                <p>Carrot</p>
+                            </div>
+                            <div class="item-qnty">
+                                <p>3</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <button class="download-btn">Download List</button>
+
+
+                </div>
+            </div>
+
+            <!--Settings-->
+            <div class="side-menu-page bot" id="settings">
+                <div class="tab-3" id="settings-tab">
+                    <div class="tab">Settings</div>
+                </div>    
+
+                <div class="side-menu-page-content"></div>
+            </div>
+
+
+
+        </div>
+
+        <div class="add-recipe-modal" id="modal">
+            
+            <div class="modal">
+
+                <div class="close-modal-btn" id="modal-close">
+                    <i class="fa-regular fa-circle-xmark fa-xl"></i>
+                </div>
+
+                <h1>Add Recipe</h1>
+
+                <div class="input-field">
+                    <label for="recipe-name"> Recipe Name:</label>
+                    <input type="text" name="recipe-name" class="recipe-name-input text-input" id="m-recipe-name">
+                </div>
+
+                <div class="inline">
+                    <div class="input-field">
+                        <label for="recipe-calories"> Calories:</label>
+                        <input type="text" name="recipe-calories" id="m-recipe-calories" class="text-input" placeholder="000">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="recipe-cook-time"> Cook Time:</label>
+                        <input type="text" name="recipe-cook-time" id="m-recipe-cook-time" class="text-input" placeholder="in minutes...">
+                    </div>
+                </div>
+
+
+                <div class="recipe-ingredient-box">
+                    <h3>Ingredients</h3>
+                    <div class="recipe-ingr-box-topline">
+                            <p>Name</p>
+                            <p>Quantity</p>
+                            <p>Unit</p>
+                    </div>
+
+                    <ul id="recipe-ingredient-box-list">
+                        <li class="m-recipe-ingredient">
+                            <input class='ingr-name text-input' type="text" placeholder="Ingredient Name...">
+                            <input class="ingr-qnty text-input" type="text" placeholder="0.0">
+
+                            <select class="ingr-unit text-input">
+                                <option value="unit">units</option>
+                                <option value="pizza">pizza</option>
+                            </select>
+
+                        </li>
+                    </ul>
+
+                    <div class="add-item-btn" id="recipe-add-ingr">
+                        <i class="fa-solid fa-square-plus fa-2x"></i>
+                    </div>
+                </div>
+
+                <div class="recipe-directions-box">
+                    <h3>Instructions</h3>
+                    <ul id="recipe-directions-box-list">
+
+
+                        <li class="step">
+                            <p>Step 1:</p>
+                            <input class="text-input dir" type="text" name="step1" id="step1" placeholder="Type instructions here...">
+                            <div class="close-btn">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </div>
+                        </li>
+
+
+
+
+                    </ul>
+
+
+                    <div class="add-item-btn" id="recipe-add-step">
+                        <i class="fa-solid fa-square-plus fa-2x"></i>
+                    </div>
+                </div>
+
+                <div class="input-field">
+                    <label for="recipe-link"> Recipe Link:</label>
+                    <input type="text" name="recipe-link" class="recipe-name-input text-input" id="m-recipe-link" placeholder="External recipe link...">
+                </div>
+
+                <button id='add-recipe-btn' class="download-btn">Add Item</button>
+            </div>
+            <div class="modal-bg"></div>
+
+        </div>
+    </div>
 </main>
 
 <footer>
