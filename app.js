@@ -28,7 +28,7 @@ const domRecipeList = document.getElementById('recipe-list')
 
 const domRecipeContainer = document.getElementById('recipe-container');
 
-
+const domShoppingListCont = document.getElementById('shopping-list-container')
 const domShoppingList = document.getElementById('shopping-list');
 
 
@@ -64,6 +64,15 @@ buildRecipeList(recipeBook[1]);
 // EventListeners
 //----------------------------------
 
+//mouse tracking
+let mouseX;
+let mouseY;
+window.addEventListener('click', (event) => {
+  mouseX =  event.clientX;
+  mouseY = event.clientY;
+});
+
+
 //SideBar Buttons
 domShoppingListButton.addEventListener('click', () => {
   togglePage('shopping');
@@ -74,8 +83,6 @@ domRecipeButton.addEventListener('click', () => {
 domSettingsButton.addEventListener('click', ()=>{
   togglePage('settings');
 })
-
-
 
 //Filter Item Buttons
 let ingr = document.getElementsByClassName("filter-item");
@@ -119,12 +126,13 @@ function togglePage(target){
   let domMidPage = document.getElementById('side-menu').getElementsByClassName('mid')[0];
   let domTarget = document.getElementById(target);
   //disable buttons **Was running into problems where clicking between tabs too fast would mess with the... 
-  //class changing. Disabling the pointer events at the start of the function is an easy workaround.
-  domRecipeButton.style.pointerEvents = "none";
-  domSettingsButton.style.pointerEvents = "none";
-  domShoppingListButton.style.pointerEvents = "none";
 
   if(!domTarget.classList.contains('top')){
+
+    //class changing. Disabling the pointer events at the start of the function is an easy workaround.
+    domRecipeButton.style.pointerEvents = "none";
+    domSettingsButton.style.pointerEvents = "none";
+    domShoppingListButton.style.pointerEvents = "none";
     console.log('clicked page: ' + target);
     domTarget.preventDefault;
     let domRecipePage = document.getElementById('recipe');
@@ -173,7 +181,6 @@ function togglePage(target){
 
 }
 
-
 //Collapsable recipe info
 function toggleRecipeCollapse(collapse){
   collapse.classList.toggle("active");
@@ -205,35 +212,47 @@ function toggleFilterItems(el){
       }
 }
 
-function triggerErrorPrompt(errorMsg){
-  //popup in corner of screen
+
+function throwErrorWindow(errorString){
+  //Takes input val, pushes it to error box, then has error box play show animation
+  let errorWindow = document.getElementById('error-window');
+  let errorWindowText = errorWindow.getElementsByClassName('text')[0];
+  errorWindowText.innerHTML = errorString;
+  errorWindow.addEventListener('click', ()=>{
+    errorWindow.style.opacity = '0';
+    errorWindow.classList.remove('error-window-pop');
+  })
+
+  errorWindow.classList.remove('error-window-pop');
+  errorWindow.offsetWidth;
+  errorWindow.classList.add('error-window-pop');
+  errorWindow.preventDefault;
 }
 
-function triggerCursorErrorMessage(errorMsg){
+function throwErrorCursor(errorString){
   //small pop up offset from cursor, 1em diag. Fades after 10sec.
+  let errorWindow = document.getElementById('cursor-error');
+  let errorWindowText = errorWindow.getElementsByClassName('text')[0];
+
+  console.log(mouseY + 'px');
+  console.log(mouseX+ 'px');
+  errorWindow.style.setProperty("top", mouseY - 100 + 'px');
+  errorWindow.style['left']  = mouseX + 'px';
+
+  errorWindowText.innerHTML = errorString;
+  errorWindow.addEventListener('click', ()=>{
+    errorWindow.style.opacity = '0';
+    errorWindow.classList.remove('error-window-pop');
+  })
+
+  errorWindow.classList.remove('error-window-pop');
+  errorWindow.offsetWidth;
+  errorWindow.classList.add('error-window-pop');
+  errorWindow.preventDefault;
+
 }
 
 
-/*
-  Legend:
-  Un = unit
-
-  Lb = pounds
-  Oz = Ounces
-  Of = Ounces(fluid)
-  Cn = cans
-  Cu = Cups
-  Ts = Teaspoon
-  Tb = Tablespoon
-  Pi = pinch
-
-  Kg = Kilogram
-  Gr = gram
-  Mg = Milligram
-
-  Ml=Milliliter
-  Li = Liter
-*/
 
 //----------------------------------
 // Drag n Drop Functions
@@ -257,16 +276,14 @@ function drop(event) {
       let newRecipe = recipeBook.find(o => o.id === grabbedObj);
       console.log(newRecipe);
       buildCalenderItem(event.target, newRecipe);
+      recipeDropToShoppingList(newRecipe);
       updateDailyCalories(event.target);
     } else {
       console.log("Only 3 recipes allowed");
-      console.log()
     }
   } else {
     console.log("Can't drop item here")
   }
-
-
 }
 
 //----------------------------------
@@ -489,8 +506,15 @@ function buildCalenderItem(parent, recipe){
 
 }
 
+function recipeDropToShoppingList(recipeIn){
+  recipeIn['ingredients'].forEach(element => {
+    addIngredientToShoppingList(element)
+  });
+}
+
 //Adds ingredient into shopping list, input format = ["ingredient", [quantity, Unit of measure]]
 function addIngredientToShoppingList(arrIngr){
+
   //When item is added, it goes through this first
   //Checks if ingr is in IngredientList. If the item is on the list, add the amount in recipe to the list item.
   //if item is in list: add value to qnty;
@@ -503,39 +527,90 @@ function addIngredientToShoppingList(arrIngr){
 
   //Search the ingredient List for ingredient. If on it, sets the bool to true.
   shoppingList.forEach(element => {
-  if(element.hasOwnProperty(ingrName)){
-    ingrBool = true;
-  }
+    if(element["name"] == (ingrName)){
+      ingrBool = true;
+      console.log(ingrName +' checked')
+    }
 });
 
 //if ingr in list, then finds it, and adds the Qnty together. 
-  if(ingrBool){
-    //Adds the ingredient together
-    console.log('ingredient already on list');
+  if(ingrBool){//Adds the ingredient together
+    console.log(ingrName + ' already on list');
 
-    //in ingr not on list, adds it
-  }else{
+    let index = shoppingList.findIndex(x => x["name"] == ingrName)
+    let listItem = shoppingList[index];
+
+    if(ingrUnit === listItem['unit']){
+      listItem['qnty'] = listItem['qnty'] + ingrQnty;
+      console.log(listItem["qnty"]);
+      updateShoppingList()
+    }
+    else{
+      console.log('differentUnits')
+    }
+  }else{//if ingr not on list, adds it
     let newIngredient = {};
 
-    newIngredient[ingrName] = ingrQnty;
+    newIngredient['name'] = ingrName;
+    newIngredient['qnty'] = ingrQnty;
     newIngredient['unit'] = ingrUnit;
     shoppingList.push(newIngredient);
     console.log('Ingredient Added');
 
-    buildShoppingListItem(ingrName, ingrQnty, ingrUnit);
+    updateShoppingList()
   }
-
   console.log(shoppingList);
+}
+
+//removes all ingredient from a recipe 
+function removeIngredientFromShoppingList(arrIngr){
+
+  //format: ["ingredient", [quantity, Unit of measure]]
+
+  let ingrName = arrIngr[0];
+  let ingrQnty = arrIngr[1][0];
+  let ingrUnit = arrIngr[1][1];
+  let ingrArrIndex ;
+
+
+  //find ingredient index in list by name. 
+
+
+  //slice that ingredient as new var
+
+
+  //remove the amount in qnty that is in the recipe. 
+
+
+  //push ingredient back into array 
+  
+  //if there is 0 or less of the ingredient remaining, don't re-add
+
+
+}
+
+
+//clears shoppinglistcontaier, rebuilds all list items from shopping list
+function updateShoppingList(){
+  //delete all children
+  while (domShoppingListCont.firstChild) {
+    domShoppingListCont.removeChild(domShoppingListCont.firstChild);
+  }
+  //For each shopping List item, build shoppingList Item
+  shoppingList.forEach(element => {
+    buildShoppingListItem(element["name"], element['qnty'], element["unit"])
+  });
+
 }
 
 //creates ShoppingListItem in DOM
 function buildShoppingListItem(name, amount, unit){
   //when item is dropped on calc. Adds the ingr. 
-  let domShoppingList = document.getElementById('shopping-list-container')
+  
 
   let divListItem = document.createElement('div')
   divListItem.classList.add('list-item');
-  domShoppingList.append(divListItem);
+  domShoppingListCont.append(divListItem);
 
     let divItemName = document.createElement('div');
     divItemName.classList.add('item-name');
@@ -574,107 +649,78 @@ function buildShoppingListItem(name, amount, unit){
   
 }
 
-//removes all ingredients from a recipe. also adds 
-function removeIngredientFromList(arrIngr){
 
-  let ingrName = arrIngr[0];
-  let ingrQnty = arrIngr[1][0];
-  let ingrUnit = arrIngr[1][1];
-  let ingrArrIndex ;
-
-  /*
-  let ingredientList = [
-    { 'name' : 'onion',
-      'qnty' : '3',
-      'unit' : 'lbs'  },
-
-    { 'name' : 'pepper',
-      'qnty' : '3',
-      'unit' : 'lbs'  },
-  ];
-
-  let ingredients = ["manwich-sauce", [0.5, "can"]];
-*/
-
-
-  //find ingredient index in list by name. 
-
-
-  //slice that ingredient as new var
-
-
-  //remove the amount in qnty that is in the recipe. 
-
-
-  //push ingredient back into array //if there is 0 or less of the ingredient remaining, don't re-add
-
-
-}
 
 
 //----------------------------------
 // Modal Functions
 //----------------------------------
 
+//Takes Modal info, parses it as OBJ then pushes it to the RecipeBook
 function addRecipe(){
 
-  //takes all the inputted information that is in modal form
-  //parses it into Obj format, then pushes to the Recipe book
 let newRecipe = {};
-
 let modalName = document.getElementById('m-recipe-name');
 let modalCalories = document.getElementById('m-recipe-calories');
 let modalCooktime = document.getElementById('m-recipe-cook-time');
-
 let modalIngredientBox = document.getElementById('recipe-ingredient-box-list');
 let modalDirectionBox = document.getElementById('recipe-directions-box-list');
 
-//RecipeId
-newRecipe['id'] = modalName.value.replace(/\s+/g, '-').toLowerCase();
+//Validate info first, if any is wrong, prevent it from submitting
+let validateName = validateInput(modalName.value, 'string', modalName);
+let validateCal = validateInput(modalCalories.value, 'int', modalCalories);
+let validateCookTime = validateInput(modalCooktime.value, 'int', modalCooktime);
+console.log(validateCal);
+console.log(validateCookTime);
+console.log(validateName);
+//validate all of the boxes, if any are wrong, don't do anything. 
 
-newRecipe['name'] =  modalName.value.toLowerCase();
+if(validateName == false || validateCal == false || validateCookTime == false ){
+  console.log('fail');
+  throwErrorWindow('There seems to be an issue with the values entered');
+} 
 
-newRecipe['calories'] = modalCalories.value;
+else{
+  //RecipeId
+  newRecipe['id'] = modalName.value.replace(/\s+/g, '-').toLowerCase();
+  newRecipe['name'] =  modalName.value.toLowerCase();
+  newRecipe['calories'] = parseInt(modalCalories.value);
+  newRecipe['cookTime'] = modalCooktime.value + ' min';
 
-newRecipe['cookTime'] = modalCooktime.value;
-
-newRecipe['ingredients'] = []
-//find all instances of <li class="m-recipe-ingredient"> in <ul id="recipe-ingredient-box-list">
-//[ingr-name, [ingr-qnty, ele.options[e.selectedIndex].value]]
-let objArrRecipeIngr = modalIngredientBox.getElementsByClassName('m-recipe-ingredient');
-let arrRecipeIngr = Array.from(objArrRecipeIngr);
-//console.log(arrRecipeIngr);
-
-arrRecipeIngr.forEach(element => {
+  newRecipe['ingredients'] = []
+  //find all instances of <li class="m-recipe-ingredient"> in <ul id="recipe-ingredient-box-list">
+  //[ingr-name, [ingr-qnty, ele.options[e.selectedIndex].value]]
+  let objArrRecipeIngr = modalIngredientBox.getElementsByClassName('m-recipe-ingredient');
+  let arrRecipeIngr = Array.from(objArrRecipeIngr);
+  arrRecipeIngr.forEach(element => {
 
   let newIngredient = [];
-  newIngredient.push(element.getElementsByClassName('ingr-name')[0].value);
+    newIngredient.push(element.getElementsByClassName('ingr-name')[0].value);
 
   let newIngredientQnty = []
-  newIngredientQnty.push(element.getElementsByClassName('ingr-qnty')[0].value);
-  newIngredientQnty.push(element.getElementsByClassName('ingr-unit')[0].value);
+    newIngredientQnty.push(element.getElementsByClassName('ingr-qnty')[0].value);
+    newIngredientQnty.push(element.getElementsByClassName('ingr-unit')[0].value);
 
   //put together all the values into one array
   newIngredient.push(newIngredientQnty);
   newRecipe['ingredients'].push(newIngredient)
 
-});
+  });
 
 
+  newRecipe['link'] = document.getElementById('m-recipe-link').value;
+  console.log(newRecipe);
+  //Adds the new recipe into the Recipe Book
+  recipeBook.push(newRecipe);
+  //builds Recipe List Element
+  buildRecipeList(newRecipe);
+  //console log RecipeBook
+  console.log(recipeBook);
+  //Clear all input elements from Modal
+  clearAddRecipe();
+}
 
 
-
-
-newRecipe['link'] = document.getElementById('m-recipe-link').value;
-console.log(newRecipe);
-//Adds the new recipe into the Recipe Book
-recipeBook.push(newRecipe);
-console.log(recipeBook[0]);
-console.log(newRecipe);
-buildRecipeList(newRecipe);
-
-console.log(recipeBook);
-clearAddRecipe();
 }
 
 //Clears the AddRecipe Modal, empties all boxes, deletes all, but one ingr/dir
@@ -698,7 +744,7 @@ let modalDirectionBox = document.getElementById('recipe-directions-box-list');
   modalIngredientBox.getElementsByClassName('ingr-unit')[0].value = 'unit';
 }
 
-//Removes all but the first child of the parentElement
+//Removes all but the first child of the parentElement - used in Modal Resetting
 function removeChildren(parentElement){
   //finds length of parentelement
   let length = parentElement.children.length;
@@ -799,6 +845,39 @@ function addRecipeStep(){
 
 }
 
+//Validate modal input variable types
+function validateInput(input, expectedDataType, errorElement){
+  //Check if the input value is the same as expected. 
+  let outputVal;
+  if(expectedDataType === 'int'){
+    //if val is supposed to be Int. Then parse it as such
+    outputVal = parseInt(input);
+    //NaN check
+    if (!isNaN(outputVal)){
+      errorElement.style.border = 'none'
+      return outputVal;
+    } else{
+      //if output is NaN, then throw error, or else pass it in return
+      errorElement.style.border = '2px solid red'
+      return false;
+    }
+  }
+  
+  if(expectedDataType === 'string'){
+    if(input == ''){
+      errorElement.style.border = '2px solid red'
+      return false
+    }else{
+      //if val is supposed to be string. Then parse it as such
+      outputVal = toString(input)
+      errorElement.style.border = 'none'
+      return outputVal;
+    }
+
+  }
+
+}
+
 
 //----------------------------------
 // Update Functions
@@ -835,3 +914,4 @@ function updateDailyCalories(parent){
   }
 
 }
+

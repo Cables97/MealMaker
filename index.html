@@ -246,7 +246,7 @@
             </div>
         </div>
 
-
+        <!-- Menu Wrapper -->
         <div class="side-menu-wrapper" id="side-menu">
             <!--RecipeBook-->
             <div class="side-menu-page top" id="recipe">
@@ -352,12 +352,6 @@
                         </div>
 
                     </div>
-
-                    <div class="recipe-bottom-bar">
-                        <div class="save-load-btn save" id="save-btn"><p>Save</p></div>
-                        <div class="save-load-btn load" id="load-btn"><p>Upload</p></div> 
-                    </div>
-
                 </div>
             </div>
 
@@ -426,17 +420,94 @@
 
             <!--Settings-->
             <div class="side-menu-page bot" id="settings">
+
                 <div class="tab-3" id="settings-tab">
                     <div class="tab">Settings</div>
                 </div>    
 
-                <div class="side-menu-page-content"></div>
+                <div class="side-menu-page-content settings">
+                    <div class="settings-container">
+
+                        <div class="calorie-goal-wrapper">
+                            <h3>Daily Calorie Goal</h3>
+                            <div class="calorie-goal-display">1200</div>
+                            <input class="range-slider" type="range" name="" id="" min="1200" max="2800" step="200" value="1200">
+
+                            <div class="calorie-goal-info">
+                                <p>Recommended Daily Calorie Intake</p>       
+                                <table>
+                                    <tr>
+                                      <th>Sex</th>
+                                      <th>Age</th>
+                                      <th>Low Activity</th>
+                                      <th>Moderate Activity</th>
+                                      <th>Active</th>
+                                    </tr>
+                                    <tr>
+                                      <td>F</td>
+                                      <td>18-30</td>
+                                      <td>1800</td>
+                                      <td>2000</td>
+                                      <td>2400</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>31-50</td>
+                                        <td>1800</td>
+                                        <td>2200</td>
+                                        <td>2400</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>51+</td>
+                                        <td>1600</td>
+                                        <td>1800</td>
+                                        <td>2200</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>M</td>
+                                        <td>18-30</td>
+                                        <td>2400</td>
+                                        <td>2600</td>
+                                        <td>3000</td>
+                                      </tr>
+                                      <tr>
+                                          <td></td>
+                                          <td>31-50</td>
+                                          <td>2200</td>
+                                          <td>2400</td>
+                                          <td>2800</td>
+                                      </tr>
+                                      <tr>
+                                          <td></td>
+                                          <td>51+</td>
+                                          <td>2000</td>
+                                          <td>2200</td>
+                                          <td>2400</td>
+                                      </tr>
+
+
+                                  </table> 
+                                <p> Source: <a href="https://www.webmd.com/diet/calories-chart">WebMd</a></p>
+                            </div>
+                        </div>
+
+                        <div class="recipe-bottom-bar">
+                            <div class="save-load-btn save" id="save-btn"><p>Save</p></div>
+                            <div class="save-load-btn load" id="load-btn"><p>Upload</p></div> 
+                        </div>
+                    </div>
+                    
+
+                </div>
             </div>
 
 
 
         </div>
 
+        <!-- Modal Wrapper -->
         <div class="add-recipe-modal" id="modal">
             
             <div class="modal">
@@ -448,18 +519,18 @@
                 <h1>Add Recipe</h1>
 
                 <div class="input-field">
-                    <label for="recipe-name"> Recipe Name:</label>
+                    <label for="m-recipe-name"> Recipe Name:</label>
                     <input type="text" name="recipe-name" class="recipe-name-input text-input" id="m-recipe-name">
                 </div>
 
                 <div class="inline">
                     <div class="input-field">
-                        <label for="recipe-calories"> Calories:</label>
+                        <label for="m-recipe-calories"> Calories:</label>
                         <input type="text" name="recipe-calories" id="m-recipe-calories" class="text-input" placeholder="000">
                     </div>
 
                     <div class="input-field">
-                        <label for="recipe-cook-time"> Cook Time:</label>
+                        <label for="m-recipe-cook-time"> Cook Time:</label>
                         <input type="text" name="recipe-cook-time" id="m-recipe-cook-time" class="text-input" placeholder="in minutes...">
                     </div>
                 </div>
@@ -475,10 +546,10 @@
 
                     <ul id="recipe-ingredient-box-list">
                         <li class="m-recipe-ingredient">
-                            <input class='ingr-name text-input' type="text" placeholder="Ingredient Name...">
-                            <input class="ingr-qnty text-input" type="text" placeholder="0.0">
+                            <input name='ingredient' class='ingr-name text-input' type="text" placeholder="Ingredient Name...">
+                            <input name="ingredient-quantity" class="ingr-qnty text-input" type="text" placeholder="0.0">
 
-                            <select class="ingr-unit text-input">
+                            <select name="'ingredient-units" class="ingr-unit text-input">
                                 <option value="unit">units</option>
                                 <option value="pizza">pizza</option>
                             </select>
@@ -516,7 +587,7 @@
                 </div>
 
                 <div class="input-field">
-                    <label for="recipe-link"> Recipe Link:</label>
+                    <label for="m-recipe-link"> Recipe Link:</label>
                     <input type="text" name="recipe-link" class="recipe-name-input text-input" id="m-recipe-link" placeholder="External recipe link...">
                 </div>
 
@@ -525,6 +596,23 @@
             <div class="modal-bg"></div>
 
         </div>
+
+        <!--Error Wrapper-->
+        <div class="error-wrapper">
+            <div class="error-window-wrapper error-box" id="error-window">
+                <i class="fa-solid fa-triangle-exclamation fa-xl"></i>
+                <!--<p class="text"></p> -->
+                <p>
+                    Mouse pos: <b><span id="mouse-pos"></span></b>
+                  </p>
+            </div>
+
+            <div class="error-cursor-wrapper error-box" id="cursor-error">
+                <p class="text">ToolTip Errorawwwwwwwwwwwwwwwwwwwws</p>
+            </div>
+
+        </div>
+
     </div>
 </main>
 
