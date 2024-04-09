@@ -24,7 +24,7 @@ body {
   height: 100vh;
   width: 100vw;
   padding: 0;
-  margin: 0;
+  margin: auto;
   background-color: #050634;
   box-shadow: 0 0 100px 50px #04031b inset;
   overflow: hidden;
@@ -40,9 +40,9 @@ body {
 }
 
 header {
-  border: 2px solid red;
   width: 1920px;
   padding-left: 900px;
+  height: 140px;
 }
 header img {
   height: 120px;
@@ -53,7 +53,6 @@ header img {
 
 .content {
   position: relative;
-  border: 2px solid yellow;
   height: 840px;
   width: 1920px;
 }
@@ -230,8 +229,19 @@ header img {
   color: white;
 }
 
+.week .left .calendar-item .tool-tip {
+  left: 200px;
+}
+.week .right .calendar-item .tool-tip {
+  right: 200px;
+}
+
 .calendar-item {
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 0 10px 2px rgba(19, 19, 19, 0.25), 0 0 10px 2px rgba(19, 19, 19, 0.1) inset;
+  background: linear-gradient(#f1f1f1, #f1f1f1);
 }
 .calendar-item .title-wrapper {
   font-family: "Roboto Condensed", sans-serif;
@@ -257,11 +267,15 @@ header img {
   opacity: 0;
   position: absolute;
   z-index: 5;
-  left: 200px;
   top: -120px;
   width: 200px;
   background-color: white;
-  transition: 1s;
+  transition: 0.25s ease-out;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 0 10px 2px rgba(19, 19, 19, 0.25), 0 0 10px 4px rgba(19, 19, 19, 0.1) inset;
 }
 .calendar-item .tool-tip .recipe-info {
   display: flex;
@@ -340,7 +354,6 @@ header img {
 }
 
 .side-menu-wrapper {
-  border: 2px solid red;
   position: absolute;
   top: -150px;
   height: 1000px;
@@ -524,10 +537,6 @@ header img {
 
 .active {
   display: inherit;
-}
-
-.draggable {
-  border: 1px solid red;
 }
 
 .recipes .recipe-top-bar {
@@ -1048,10 +1057,6 @@ header img {
   text-align: center;
 }
 
-.left {
-  left: -200px;
-}
-
 .shopping-list .list-container {
   width: 75%;
   height: 800px;
@@ -1136,7 +1141,6 @@ header img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid red;
 }
 .calorie-goal-wrapper h3 {
   font-family: "Roboto Condensed", sans-serif;
@@ -1151,7 +1155,6 @@ header img {
   margin-bottom: 40px;
 }
 .calorie-goal-wrapper .calorie-goal-info {
-  border: 2px solid red;
   width: 90%;
 }
 .calorie-goal-wrapper .calorie-goal-info table {

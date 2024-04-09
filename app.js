@@ -1,6 +1,3 @@
-// ESM:
-//import convert from "convert";
-
 //-------------------------------------
 //Fetch JSON Data from Github Page
 //-------------------------------------
@@ -425,7 +422,6 @@ function buildCalenderItem(parent, recipe){
       let divCloseBtn = document.createElement('div');
       divCloseBtn.classList.add('close-btn');
       divCloseBtn.addEventListener('click', () =>{
-        
         divCloseBtn.parentElement.parentElement.remove()
         updateDailyCalories(parent)
       })
@@ -566,26 +562,26 @@ function addIngredientToShoppingList(arrIngr){
 function removeIngredientFromShoppingList(arrIngr){
 
   //format: ["ingredient", [quantity, Unit of measure]]
-
   let ingrName = arrIngr[0];
   let ingrQnty = arrIngr[1][0];
   let ingrUnit = arrIngr[1][1];
-  let ingrArrIndex ;
 
+  //find ingredient index in list by name, input format = ["ingredient", [quantity, Unit of measure]]
+  console.log(ingrName + ' already on list');
 
-  //find ingredient index in list by name. 
+  //find matching ingr in shoppinglist
+  let index = shoppingList.findIndex(x => x["name"] == ingrName)
+  let listItem = shoppingList[index];
 
-
-  //slice that ingredient as new var
-
-
-  //remove the amount in qnty that is in the recipe. 
-
-
-  //push ingredient back into array 
-  
-  //if there is 0 or less of the ingredient remaining, don't re-add
-
+  //if same unit == ingrunit then subtract them apart
+  if(ingrUnit === listItem['unit']){
+    listItem['qnty'] = listItem['qnty'] - ingrQnty;
+    console.log(listItem["qnty"]);
+    updateShoppingList()
+  }
+  else{
+    //reduce change
+  }
 
 }
 
@@ -633,7 +629,7 @@ function buildShoppingListItem(name, amount, unit){
       pItemUnit.innerHTML = unit;
       divItemQnty.append(pItemUnit);
 
-      //Imperial
+       /* //Imperial
       let divItemQntyImp = document.createElement('div');
       divItemQntyImp.classList.add('item-qnty');
       divListItem.append(divItemQntyImp);
@@ -646,11 +642,13 @@ function buildShoppingListItem(name, amount, unit){
         let pItemUnitImp = document.createElement('p');
         pItemUnitImp.innerHTML = unit;
         divItemQntyImp.append(pItemUnitImp);
-  
+  */
 }
 
 
+function deleteCalendarListItem(calendarParent){
 
+}
 
 //----------------------------------
 // Modal Functions
@@ -670,6 +668,10 @@ let modalDirectionBox = document.getElementById('recipe-directions-box-list');
 let validateName = validateInput(modalName.value, 'string', modalName);
 let validateCal = validateInput(modalCalories.value, 'int', modalCalories);
 let validateCookTime = validateInput(modalCooktime.value, 'int', modalCooktime);
+
+
+
+
 console.log(validateCal);
 console.log(validateCookTime);
 console.log(validateName);
