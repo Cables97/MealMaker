@@ -3,8 +3,8 @@
   --color-bg-edge: #04031b;
   --color-text-title: #dddddd;
   --color-text: #ffffff;
-  --color-buttons:#723344;
-  --color-buttons-highlight: #DE615B;
+  --color-buttons: #723344;
+  --color-buttons-highlight: #de615b;
   --color-tab-1: #00af3a;
   --color-tab-2: #9b00af;
   --color-tab-3: #008caf;
@@ -53,6 +53,7 @@ header img {
 
 .content {
   position: relative;
+  margin: auto;
   height: 840px;
   width: 1920px;
 }
@@ -355,7 +356,7 @@ header img {
 
 .side-menu-wrapper {
   position: absolute;
-  top: -150px;
+  top: -140px;
   height: 1000px;
   width: 480px;
 }
@@ -394,7 +395,8 @@ header img {
   display: inline-block;
   box-shadow: 2px 2px 30px 10px rgba(0, 0, 0, 0.5);
 }
-.side-menu-wrapper .side-menu-page .tab-1 .tab:before, .side-menu-wrapper .side-menu-page .tab-1 .tab:after {
+.side-menu-wrapper .side-menu-page .tab-1 .tab:before,
+.side-menu-wrapper .side-menu-page .tab-1 .tab:after {
   content: "";
   position: absolute;
 }
@@ -444,7 +446,8 @@ header img {
   display: inline-block;
   box-shadow: 2px 2px 30px 10px rgba(0, 0, 0, 0.5);
 }
-.side-menu-wrapper .side-menu-page .tab-2 .tab:before, .side-menu-wrapper .side-menu-page .tab-2 .tab:after {
+.side-menu-wrapper .side-menu-page .tab-2 .tab:before,
+.side-menu-wrapper .side-menu-page .tab-2 .tab:after {
   content: "";
   position: absolute;
 }
@@ -494,7 +497,8 @@ header img {
   display: inline-block;
   box-shadow: 2px 2px 30px 10px rgba(0, 0, 0, 0.5);
 }
-.side-menu-wrapper .side-menu-page .tab-3 .tab:before, .side-menu-wrapper .side-menu-page .tab-3 .tab:after {
+.side-menu-wrapper .side-menu-page .tab-3 .tab:before,
+.side-menu-wrapper .side-menu-page .tab-3 .tab:after {
   content: "";
   position: absolute;
 }
@@ -711,7 +715,7 @@ header img {
   color: white;
 }
 .recipe-bottom-bar .load:hover {
-  background-color: #DE615B;
+  background-color: #de615b;
   box-shadow: 1px 1px 10px 3px rgba(222, 97, 91, 0.5);
 }
 
@@ -868,7 +872,7 @@ header img {
   margin: 0 auto;
 }
 .add-recipe-modal .modal .download-btn:hover {
-  background-color: #DE615B;
+  background-color: #de615b;
   box-shadow: 1px 1px 10px 3px rgba(222, 97, 91, 0.5);
 }
 
@@ -1035,11 +1039,11 @@ header img {
 }
 
 .add-item-btn:hover {
-  box-shadow: 0 0 5px 5px #DE615B;
+  box-shadow: 0 0 5px 5px #de615b;
 }
 
 .add-item-btn:hover > i {
-  color: #DE615B;
+  color: #de615b;
 }
 
 .text-input {
@@ -1125,7 +1129,7 @@ header img {
   color: white;
 }
 .shopping-list .download-btn:hover {
-  background-color: #DE615B;
+  background-color: #de615b;
   box-shadow: 1px 1px 10px 3px rgba(222, 97, 91, 0.5);
 }
 
@@ -1136,13 +1140,14 @@ header img {
   background-color: rgba(128, 128, 128, 0.25);
   box-shadow: -2px -2px 3px 2px rgba(128, 128, 128, 0.25) inset, -1px -1px 1px 1px rgba(128, 128, 128, 0.5) inset;
 }
-
-.calorie-goal-wrapper {
+.settings .settings-container .calorie-goal-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid red;
+  padding-top: 2em;
 }
-.calorie-goal-wrapper h3 {
+.settings .settings-container .calorie-goal-wrapper h3 {
   font-family: "Roboto Condensed", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -1150,22 +1155,34 @@ header img {
   font-size: 1.5em;
   line-height: 0;
 }
-.calorie-goal-wrapper .range-slider {
+.settings .settings-container .calorie-goal-wrapper div {
+  font-size: 1.25em;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.settings .settings-container .calorie-goal-wrapper .range-slider {
   width: 80%;
   margin-bottom: 40px;
 }
-.calorie-goal-wrapper .calorie-goal-info {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info {
   width: 90%;
+  font-size: 1em;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
-.calorie-goal-wrapper .calorie-goal-info table {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table {
   width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
 }
-.calorie-goal-wrapper .calorie-goal-info table tr {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr {
   border: 1px solid black;
 }
-.calorie-goal-wrapper .calorie-goal-info table tr th {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr th {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -1173,7 +1190,7 @@ header img {
   font-size: 0.8em;
   border: 1px solid rgba(19, 19, 19, 0.25);
 }
-.calorie-goal-wrapper .calorie-goal-info table tr td {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr td {
   border: 1px solid rgba(19, 19, 19, 0.25);
   text-align: center;
   font-family: "Roboto Condensed", sans-serif;
@@ -1182,25 +1199,25 @@ header img {
   font-style: normal;
   font-weight: 400;
 }
-.calorie-goal-wrapper .calorie-goal-info table tr td:nth-child(3) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr td:nth-child(3) {
   width: 2em;
 }
-.calorie-goal-wrapper .calorie-goal-info table tr td:nth-child(4) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr td:nth-child(4) {
   width: 2em;
 }
-.calorie-goal-wrapper .calorie-goal-info table tr td:nth-child(5) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr td:nth-child(5) {
   width: 2em;
 }
-.calorie-goal-wrapper .calorie-goal-info table tr:nth-child(even) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.calorie-goal-wrapper .calorie-goal-info table tr:nth-of-type(1) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr:nth-of-type(1) {
   border-bottom: 2px solid rgba(19, 19, 19, 0.5);
 }
-.calorie-goal-wrapper .calorie-goal-info table tr:nth-of-type(4) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr:nth-of-type(4) {
   border-bottom: 2px solid rgba(19, 19, 19, 0.5);
 }
-.calorie-goal-wrapper .calorie-goal-info p {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info p {
   font-family: "Roboto Condensed", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -1210,7 +1227,7 @@ header img {
   padding-bottom: 0;
   line-height: 0;
 }
-.calorie-goal-wrapper .calorie-goal-info p:nth-of-type(2) {
+.settings .settings-container .calorie-goal-wrapper .calorie-goal-info p:nth-of-type(2) {
   text-align: left;
   font-family: "Roboto Condensed", sans-serif;
   font-optical-sizing: auto;
