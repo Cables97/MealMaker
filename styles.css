@@ -1,13 +1,12 @@
 :root {
   --color-bg: #050634;
   --color-bg-edge: #04031b;
-  --color-text-title: #dddddd;
-  --color-text: #ffffff;
+  --color-text-title: #2C1320;
+  --color-text: #363636;
   --color-buttons: #723344;
   --color-buttons-highlight: #de615b;
-  --color-tab-1: #00af3a;
-  --color-tab-2: #9b00af;
-  --color-tab-3: #008caf;
+  --color-tab-1: #F4A261;
+  --color-tab-2: #E9C46A;
   --color-bg-dark: #04031b;
 }
 
@@ -25,17 +24,17 @@ body {
   width: 100vw;
   padding: 0;
   margin: auto;
-  background-color: #050634;
+  background-color: #040D12;
   box-shadow: 0 0 100px 50px #04031b inset;
   overflow: hidden;
 }
 
 .title {
   text-align: center;
-  color: #ffffff;
+  color: #363636;
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
 }
 
@@ -46,7 +45,7 @@ header {
 }
 header img {
   height: 120px;
-  color: #ffffff;
+  color: #363636;
   filter: invert(100%);
   margin: 10px;
 }
@@ -354,6 +353,54 @@ header img {
   display: inherit;
 }
 
+.top {
+  z-index: 9;
+}
+.top .tab-wrap .tab {
+  background-color: var(--color-tab-2);
+  transition: background-color 0.5s ease-out;
+}
+.top .tab-wrap .tab:before {
+  border-color: transparent transparent var(--color-tab-2) transparent;
+  transition: border-color 0.5s ease-out;
+}
+.top .tab-wrap .tab:after {
+  border-color: transparent transparent transparent var(--color-tab-2);
+  transition: border-color 0.5s ease-out;
+}
+
+.mid {
+  z-index: 8;
+}
+.mid .tab-wrap .tab {
+  background-color: var(--color-tab-1);
+  transition: background-color 0.5s ease-out;
+}
+.mid .tab-wrap .tab:before {
+  border-color: transparent transparent var(--color-tab-1) transparent;
+  transition: border-color 0.5s ease-out;
+}
+.mid .tab-wrap .tab:after {
+  border-color: transparent transparent transparent var(--color-tab-1);
+  transition: border-color 0.5s ease-out;
+}
+
+.bot {
+  z-index: 7;
+}
+.bot .tab-wrap .tab {
+  background-color: var(--color-tab-1);
+  transition: background-color 0.5s ease-out;
+}
+.bot .tab-wrap .tab:before {
+  border-color: transparent transparent var(--color-tab-1) transparent;
+  transition: border-color 0.5s ease-out;
+}
+.bot .tab-wrap .tab:after {
+  border-color: transparent transparent transparent var(--color-tab-1);
+  transition: border-color 0.5s ease-out;
+}
+
 .side-menu-wrapper {
   position: absolute;
   top: -140px;
@@ -367,26 +414,24 @@ header img {
   height: 100%;
   pointer-events: none;
 }
-.side-menu-wrapper .side-menu-page .tab-1 {
-  top: 150px;
+.side-menu-wrapper .side-menu-page .tab-wrap {
+  filter: brightness(100%);
   position: absolute;
   transform: rotate(90deg);
   z-index: 3;
   border-radius: 20px;
   cursor: pointer;
   pointer-events: all;
-  left: 280px;
 }
-.side-menu-wrapper .side-menu-page .tab-1 .tab {
+.side-menu-wrapper .side-menu-page .tab-wrap .tab {
   font-size: 2em;
   text-align: center;
   height: 2em;
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
-  color: #fff;
-  background-color: var(--color-tab-1);
+  color: var(--color-text-title);
   border-radius: 8px 8px 0 0;
   padding: 5px 20px;
   width: 275px;
@@ -395,130 +440,38 @@ header img {
   display: inline-block;
   box-shadow: 2px 2px 30px 10px rgba(0, 0, 0, 0.5);
 }
-.side-menu-wrapper .side-menu-page .tab-1 .tab:before,
-.side-menu-wrapper .side-menu-page .tab-1 .tab:after {
+.side-menu-wrapper .side-menu-page .tab-wrap .tab:before,
+.side-menu-wrapper .side-menu-page .tab-wrap .tab:after {
   content: "";
   position: absolute;
 }
-.side-menu-wrapper .side-menu-page .tab-1 .tab:before {
+.side-menu-wrapper .side-menu-page .tab-wrap .tab:before {
   width: 0;
   height: 0;
   border-style: solid;
   border-width: 0 0 calc(2em - 6px) 24px;
-  border-color: transparent transparent var(--color-tab-1) transparent;
   top: 3px;
   left: -23px;
 }
-.side-menu-wrapper .side-menu-page .tab-1 .tab:after {
+.side-menu-wrapper .side-menu-page .tab-wrap .tab:after {
   width: 0;
   height: 0;
   border-style: solid;
   border-width: calc(2em - 6px) 0 0 24px;
-  border-color: transparent transparent transparent var(--color-tab-1);
   top: 3px;
   right: -23px;
+}
+.side-menu-wrapper .side-menu-page .tab-1 {
+  top: 150px;
+  left: 280px;
 }
 .side-menu-wrapper .side-menu-page .tab-2 {
   top: 450px;
-  position: absolute;
-  transform: rotate(90deg);
-  z-index: 3;
-  border-radius: 20px;
-  cursor: pointer;
-  pointer-events: all;
   left: 280px;
-}
-.side-menu-wrapper .side-menu-page .tab-2 .tab {
-  font-size: 2em;
-  text-align: center;
-  height: 2em;
-  font-family: "Roboto Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-variant: small-caps;
-  color: #fff;
-  background-color: var(--color-tab-2);
-  border-radius: 8px 8px 0 0;
-  padding: 5px 20px;
-  width: 275px;
-  position: relative;
-  text-decoration: none;
-  display: inline-block;
-  box-shadow: 2px 2px 30px 10px rgba(0, 0, 0, 0.5);
-}
-.side-menu-wrapper .side-menu-page .tab-2 .tab:before,
-.side-menu-wrapper .side-menu-page .tab-2 .tab:after {
-  content: "";
-  position: absolute;
-}
-.side-menu-wrapper .side-menu-page .tab-2 .tab:before {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 0 calc(2em - 6px) 24px;
-  border-color: transparent transparent var(--color-tab-2) transparent;
-  top: 3px;
-  left: -23px;
-}
-.side-menu-wrapper .side-menu-page .tab-2 .tab:after {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: calc(2em - 6px) 0 0 24px;
-  border-color: transparent transparent transparent var(--color-tab-2);
-  top: 3px;
-  right: -23px;
 }
 .side-menu-wrapper .side-menu-page .tab-3 {
   top: 740px;
-  position: absolute;
-  transform: rotate(90deg);
-  z-index: 3;
-  border-radius: 20px;
-  cursor: pointer;
-  pointer-events: all;
   left: 280px;
-}
-.side-menu-wrapper .side-menu-page .tab-3 .tab {
-  font-size: 2em;
-  text-align: center;
-  height: 2em;
-  font-family: "Roboto Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-variant: small-caps;
-  color: #fff;
-  background-color: var(--color-tab-3);
-  border-radius: 8px 8px 0 0;
-  padding: 5px 20px;
-  width: 275px;
-  position: relative;
-  text-decoration: none;
-  display: inline-block;
-  box-shadow: 2px 2px 30px 10px rgba(0, 0, 0, 0.5);
-}
-.side-menu-wrapper .side-menu-page .tab-3 .tab:before,
-.side-menu-wrapper .side-menu-page .tab-3 .tab:after {
-  content: "";
-  position: absolute;
-}
-.side-menu-wrapper .side-menu-page .tab-3 .tab:before {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 0 calc(2em - 6px) 24px;
-  border-color: transparent transparent var(--color-tab-3) transparent;
-  top: 3px;
-  left: -23px;
-}
-.side-menu-wrapper .side-menu-page .tab-3 .tab:after {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: calc(2em - 6px) 0 0 24px;
-  border-color: transparent transparent transparent var(--color-tab-3);
-  top: 3px;
-  right: -23px;
 }
 .side-menu-wrapper .side-menu-page .side-menu-page-content {
   width: 400px;
@@ -604,8 +557,8 @@ header img {
   text-align: center;
 }
 .recipes .recipe-side-bar .filter-item img {
-  height: 32px;
-  width: 32px;
+  height: 24px;
+  width: 24px;
   margin: 50%;
   transform: translate(-50%, -70%);
 }
@@ -617,7 +570,7 @@ header img {
   border-radius: 0 0 0 10px;
 }
 .recipes .recipe-side-bar .f-i-include {
-  background-color: rgba(5, 6, 52, 0.25);
+  background-color: rgba(4, 13, 18, 0.25);
 }
 .recipes .recipe-side-bar .f-i-include:hover {
   box-shadow: 0 0 4px 4px rgba(222, 97, 91, 0.75) inset;
@@ -677,7 +630,7 @@ header img {
   background-color: #723344;
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
   font-size: 2em;
   transition: 0.25s;
@@ -830,7 +783,7 @@ header img {
   transform: translate(-50%, -50%);
   height: 800px;
   width: 600px;
-  background-color: #ffffff;
+  background-color: #363636;
   z-index: 5;
   overflow-y: auto;
   border: 2px solid rgba(128, 128, 128, 0.25);
@@ -849,7 +802,7 @@ header img {
 .add-recipe-modal .modal h1 {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
   text-align: center;
 }
@@ -909,7 +862,7 @@ header img {
 .recipe-ingredient-box h3 {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
   text-align: center;
   padding: 0;
@@ -976,7 +929,7 @@ header img {
 .recipe-directions-box h3 {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
   text-align: center;
   padding: 0;
@@ -1092,7 +1045,7 @@ header img {
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  width: 60px;
+  min-width: 80px;
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -1144,7 +1097,6 @@ header img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid red;
   padding-top: 2em;
 }
 .settings .settings-container .calorie-goal-wrapper h3 {
@@ -1185,7 +1137,7 @@ header img {
 .settings .settings-container .calorie-goal-wrapper .calorie-goal-info table tr th {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
   font-size: 0.8em;
   border: 1px solid rgba(19, 19, 19, 0.25);
@@ -1250,7 +1202,6 @@ header img {
   position: absolute;
   bottom: 50px;
   right: 50px;
-  height: 100px;
   width: 300px;
   border-radius: 10px;
   background-color: #dddddd;
@@ -1300,18 +1251,6 @@ header img {
   font-weight: 400;
   font-size: 0.8em;
 }
-.top {
-  z-index: 9;
-}
-
-.mid {
-  z-index: 8;
-}
-
-.bot {
-  z-index: 7;
-}
-
 .page-shift {
   animation: page-shift-ani 1s ease-in-out 0s 1 normal forwards;
 }

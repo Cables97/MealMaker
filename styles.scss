@@ -1,7 +1,7 @@
-$color-background: #050634;
+$color-background: #040D12;
 $color-background-edge: #04031b;
 $color-box-bg: #dddddd;
-$color-text: #ffffff;
+$color-text: #363636;
 
 $button-1: rgb(83, 233, 83);
 $button-1-highlight: lightgreen;
@@ -16,15 +16,15 @@ $font: "Roboto Condensed", sans-serif;
   --color-bg: #050634;
   --color-bg-edge: #04031b;
 
-  --color-text-title: #dddddd;
-  --color-text: #ffffff;
+  --color-text-title: #2C1320;
+  --color-text: #363636;
 
   --color-buttons: #723344;
   --color-buttons-highlight: #de615b;
 
-  --color-tab-1: #00af3a;
-  --color-tab-2: #9b00af;
-  --color-tab-3: #008caf;
+  --color-tab-1: #F4A261;
+  --color-tab-2: #E9C46A;
+
 
   --color-bg-dark: #04031b;
 }
@@ -35,7 +35,7 @@ $font: "Roboto Condensed", sans-serif;
 @mixin title-font {
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 800;
   font-variant: small-caps;
 }
 
@@ -102,7 +102,7 @@ $font: "Roboto Condensed", sans-serif;
     1px 1px 20px 0 rgba($color: $color-background-edge, $alpha: 0.5);
 }
 
-@mixin tab($color) {
+@mixin tab() {
   position: absolute;
   transform: rotate(90deg);
   z-index: 3;
@@ -114,8 +114,8 @@ $font: "Roboto Condensed", sans-serif;
     text-align: center;
     height: 2em;
     @include title-font;
-    color: #fff;
-    background-color: $color;
+    color: var(--color-text-title);
+    //background-color: $color;
     border-radius: 8px 8px 0 0;
     padding: 5px 20px;
     width: calc(275px);
@@ -136,7 +136,7 @@ $font: "Roboto Condensed", sans-serif;
     height: 0;
     border-style: solid;
     border-width: 0 0 calc(2em - 6px) 24px;
-    border-color: transparent transparent $color transparent;
+    //border-color: transparent transparent $color transparent;
     top: 3px;
     left: -23px;
   }
@@ -146,7 +146,7 @@ $font: "Roboto Condensed", sans-serif;
     height: 0;
     border-style: solid;
     border-width: calc(2em - 6px) 0 0 24px;
-    border-color: transparent transparent transparent $color;
+    //border-color: transparent transparent transparent $color;
     top: 3px;
     right: -23px;
   }
@@ -503,6 +503,59 @@ header {
 //----------------------------------
 // Side-box Classes
 //----------------------------------
+.top {
+  z-index: 9;
+  .tab-wrap {
+    .tab {
+      background-color: var(--color-tab-2);
+      transition: background-color .5s ease-out;
+    }
+    .tab:before {
+      border-color: transparent transparent var(--color-tab-2) transparent;
+      transition: border-color .5s ease-out;
+    }
+    .tab:after {
+      border-color: transparent transparent transparent var(--color-tab-2);
+      transition: border-color .5s ease-out;
+    }
+  }
+}
+
+.mid {
+  z-index: 8;
+  .tab-wrap {
+    .tab {
+      background-color: var(--color-tab-1);
+      transition: background-color .5s ease-out;
+    }
+    .tab:before {
+      border-color: transparent transparent var(--color-tab-1) transparent;
+      transition: border-color .5s ease-out;
+    }
+    .tab:after {
+      border-color: transparent transparent transparent var(--color-tab-1);
+      transition: border-color .5s ease-out;
+    }
+  }
+}
+
+.bot {
+  z-index: 7;
+  .tab-wrap {
+    .tab {
+      background-color: var(--color-tab-1);
+      transition: background-color .5s ease-out;
+    }
+    .tab:before {
+      border-color: transparent transparent var(--color-tab-1) transparent;
+      transition: border-color .5s ease-out;
+    }
+    .tab:after {
+      border-color: transparent transparent transparent var(--color-tab-1);
+      transition: border-color .5s ease-out;
+    }
+  }
+}
 
 .side-menu-wrapper {
   position: absolute;
@@ -515,19 +568,21 @@ header {
     width: 100%;
     height: 100%;
     pointer-events: none;
+
+    .tab-wrap{
+      filter:brightness(100%);
+      @include tab();
+    }
     .tab-1 {
       top: 150px;
-      @include tab(var(--color-tab-1));
       left: 280px;
     }
     .tab-2 {
       top: 450px;
-      @include tab(var(--color-tab-2));
       left: 280px;
     }
     .tab-3 {
       top: 740px;
-      @include tab(var(--color-tab-3));
       left: 280px;
     }
 
@@ -628,8 +683,8 @@ header {
         text-align: center;
       }
       img {
-        height: 32px;
-        width: 32px;
+        height: 24px;
+        width: 24px;
         margin: 50%;
         transform: translate(-50%, -70%);
       }
@@ -1070,7 +1125,7 @@ header {
       }
       .item-qnty {
         @include text-font;
-        width: 60px;
+        min-width: 80px;
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -1115,7 +1170,7 @@ header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 1px solid red;
+        
         padding-top:2em;
         h3 {
             @include text-font;
@@ -1210,7 +1265,6 @@ header {
     position: absolute;
     bottom: 50px;
     right: 50px;
-    height: 100px;
     width: 300px;
     @include box;
     pointer-events: all;
@@ -1262,17 +1316,7 @@ header {
 //----------------------------------
 // Animation Classes
 //----------------------------------
-.top {
-  z-index: 9;
-}
 
-.mid {
-  z-index: 8;
-}
-
-.bot {
-  z-index: 7;
-}
 
 .page-shift {
   animation: page-shift-ani 1s ease-in-out 0s 1 normal forwards;

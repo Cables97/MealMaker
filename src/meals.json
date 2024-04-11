@@ -5,9 +5,9 @@
     "calories": 750,
     "cookTime": "30 min",
     "ingredients": [
-      ["slider-buns", [2, "buns"]],
+      ["slider-buns", [2.0, "units"]],
       ["ground-beef", [0.5, "lbs"]],
-      ["manwich-sauce", [0.5, "can"]]
+      ["manwich-sauce", [500, "ml"]]
     ],
     "directions": {
       "0": "Brown ground beef in a saucepan, drain excess liquids",
@@ -26,9 +26,9 @@
     "calories": 750,
     "cookTime": "30 min",
     "ingredients": [
-      ["slider-buns", [2, "buns"]],
-      ["ground-beef", [0.5, "lbs"]],
-      ["manwich-sauce", [0.5, "can"]]
+      ["slider-buns", [2.0, "units"]],
+      ["slider-buns", [0.5, "lbs"]],
+      ["chocolate", [500, "ml"]]
     ],
     "directions": {
       "0": "Brown ground beef in a saucepan, drain excess liquids",

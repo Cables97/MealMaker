@@ -1,3 +1,4 @@
+
 //-------------------------------------
 //Fetch JSON Data from Github Page
 //-------------------------------------
@@ -31,21 +32,37 @@ const domShoppingList = document.getElementById('shopping-list');
 const domAddRecipe = document.getElementById('add-recipe');
 
 const domModal = document.getElementById('modal');
-const domModalClose = document.getElementById('modal-close');
-const domModalOpen = document.getElementById('add-recipe');
-const domRecipeAddIngr = document.getElementById('recipe-add-ingr');
 
-const domAddNewRecipe = document.getElementById('add-recipe-btn');
+
+
 
 //----------------------------------
 // Global Variables
 //----------------------------------
 
-let shoppingList = [];
+let shoppingList = [];//[["ingredient", [quantity, Unit of measure], [quantity, Unit of measure]], ["ingredient", [quantity, Unit of measure], [quantity, Unit of measure], [quantity, Unit of measure]]]
 
-let arrUnits = ['lbs', 'oz', 'fl.oz','cups','ts', 'tbs', 'kg', 'g', 'mg', 'mL', 'L' ]
+let arrUnits = ['lbs', 'oz', 'fl.oz','cups','ts', 'tbs', 'kg', 'g', 'mg', 'mL', 'L', 'Units' ]
 
-let calorieGoal = 1500; 
+let calorieGoal = 1200; 
+
+function Ingredient(name) {
+  this.name = name;
+
+  this.lbs = 0;
+  this.oz = 0;
+  this.cups = 0;
+  this.tbs = 0;
+  this.ts = 0;
+
+  this.kg = 0;
+  this.g = 0;
+  this.mg = 0;
+  this.liter = 0;
+  this.ml = 0;
+
+  this.units = 0;
+}
 
 buildRecipeList(recipeBook[0]);
 buildRecipeList(recipeBook[1]);
@@ -71,14 +88,15 @@ domShoppingListButton.addEventListener('click', () => {
 domRecipeButton.addEventListener('click', () => {
   togglePage('recipe');
 })
+
 domSettingsButton.addEventListener('click', ()=>{
   togglePage('settings');
 })
 
 //Filter Item Buttons
-let ingr = document.getElementsByClassName("filter-item");
-for (let index = 0; index < ingr.length; index++) {
-  ingr[index].addEventListener("click", function() {
+let filterBtns = document.getElementsByClassName("filter-item");
+for (let index = 0; index < filterBtns.length; index++) {
+  filterBtns[index].addEventListener("click", function() {
     toggleFilterItems(this);
   });
 } 
@@ -100,17 +118,19 @@ for (let index = 0; index < dragDrop.length; index++) {
 document.getElementById("calorie-slider").addEventListener('input', updateCalorieSlider);
 
 //searchbar
-
 document.getElementById("filter-search").addEventListener("input", searchBar);
-
 
 //Modal inner functions
 document.getElementById('recipe-add-step').addEventListener('click', addRecipeStep)
-domAddNewRecipe.addEventListener('click', addRecipe);
-domRecipeAddIngr.addEventListener('click', addRecipeIngr);
+document.getElementById('add-recipe-btn').addEventListener('click', addRecipe);
+document.getElementById('recipe-add-ingr').addEventListener('click', addRecipeIngr);
 //modal Open
-domModalClose.addEventListener('click', toggleModal);
-domModalOpen.addEventListener('click', toggleModal);
+
+document.getElementById('modal-close').addEventListener('click', toggleModal);
+document.getElementById('add-recipe').addEventListener('click', toggleModal);
+
+
+document.getElementById('download-list').addEventListener('click', downloadList)
 
 //----------------------------------
 // Toggle Functions
@@ -207,12 +227,12 @@ function toggleFilterItems(el){
       }
 }
 
-
 function throwErrorWindow(errorString){
   //Takes input val, pushes it to error box, then has error box play show animation
   let errorWindow = document.getElementById('error-window');
   let errorWindowText = errorWindow.getElementsByClassName('text')[0];
   errorWindowText.innerHTML = errorString;
+  errorWindow.style.display = "";
   errorWindow.addEventListener('click', ()=>{
     errorWindow.style.opacity = '0';
     errorWindow.classList.remove('error-window-pop');
@@ -222,6 +242,10 @@ function throwErrorWindow(errorString){
   errorWindow.offsetWidth;
   errorWindow.classList.add('error-window-pop');
   errorWindow.preventDefault;
+
+  setTimeout( ()=>{
+    errorWindow.style.display = "none";
+  }, 5000)
 }
 
 function throwErrorCursor(errorString){
@@ -514,71 +538,73 @@ function recipeDropToShoppingList(recipeIn){
 //Adds ingredient into shopping list, input format = ["ingredient", [quantity, Unit of measure]]
 function addIngredientToShoppingList(arrIngr){
   //When item is added, it goes through this first
-  //Checks if ingr is in IngredientList. If the item is on the list, add the amount in recipe to the list item.
-  //if item is in list: add value to qnty;
-  //if item is not in list. Adds item to list, and put item through the buildShoppingListItem;
-
+  console.log("arringr: " + arrIngr )
   let ingrName = arrIngr[0];
-  let ingrQnty = arrIngr[1][0];
+  let ingrQnty = parseFloat(arrIngr[1][0]);
   let ingrUnit = arrIngr[1][1];
   let ingrBool ;
-
+  //console.log("ingrQnty : " + ingrQnty + "    ingrName: " + ingrName + "    ingrUnit : " + ingrUnit  )
   //Search the ingredient List for ingredient. If on it, sets the bool to true.
   shoppingList.forEach(element => {
-    if(element["name"] == (ingrName)){
+    if(element.name == (ingrName)){
       ingrBool = true;
-      console.log(ingrName +' checked')
+      //(ingrBool) ? console.log(ingrName +' in list') : (ingrName +' not in list');
     }
-});
-  console.log(ingrName);
-//if ingr in list, then finds it, and adds the Qnty together. 
-  if(ingrBool){//Adds the ingredient together
-    console.log(ingrName + ' already on list');
+  });
 
-    let index = shoppingList.findIndex(x => x["name"] == ingrName)
-    let listItem = shoppingList[index];
-
-    if(ingrUnit === listItem['unit']){
-      let a = parseInt(listItem["qnty"]);
-      let b = parseInt(ingrQnty);
-      listItem["qnty"] = listItem["qnty"] + ingrQnty;
-      console.log(listItem["qnty"]);
-      updateShoppingList()
-    }
-    else{
-      console.log('differentUnits')
-    }
-  }else{//if ingr not on list, adds it
-    let newIngredient = {};
-
-    newIngredient['name'] = ingrName;
-    newIngredient['qnty'] = ingrQnty;
-    newIngredient['unit'] = ingrUnit;
-    shoppingList.push(newIngredient);
-    console.log('Ingredient Added');
-
-    updateShoppingList()
+  if(!ingrBool){//if ingr not on list, adds it
+    const newIngr = new Ingredient(arrIngr[0]);
+    newIngr[ingrUnit] = newIngr[ingrUnit] + ingrQnty;
+    shoppingList.push(newIngr);
+    //console.log( "newIngr[ingrUnit] :  " + newIngr[ingrUnit])
+  }else{//Adds the ingredient together
+    let index = shoppingList.findIndex(x => x.name === ingrName);
+    let existIngr = shoppingList[index];
+    existIngr[ingrUnit] = parseFloat(existIngr[ingrUnit]) + ingrQnty;
+    //console.log("existIngr[ingrUnit] : " + existIngr[ingrUnit])
   }
-  
+  updateShoppingList()
 }
+
 
 //clears shoppinglistcontaier, rebuilds all list items from shopping list
 function updateShoppingList(){
+  //console.log("updateShoppingList : ")
+  //console.log(shoppingList)
   //delete all children
   while (domShoppingListCont.firstChild) {
     domShoppingListCont.removeChild(domShoppingListCont.firstChild);
   }
   //For each shopping List item, build shoppingList Item
-  shoppingList.forEach(element => {
-    buildShoppingListItem(element["name"], element['qnty'], element["unit"])
+  shoppingList.forEach(ingredient => {
+    buildShoppingListItem(ingredient)
   });
 
 }
 
+let metricToggle = true;
+
 //creates ShoppingListItem in DOM
-function buildShoppingListItem(name, amount, unit){
+function buildShoppingListItem(ingredient){
+  //input: ["ingredient", [quantity, Unit of measure], [quantity, Unit of measure]
   //when item is dropped on calc. Adds the ingr. 
+
+  let ingrName = ingredient.name;
   
+  let newItem = simplifyIngredient(ingredient, metricToggle);
+  let output = "";
+
+  if(metricToggle){
+    (newItem.kg > 0) ? output += newItem.kg + " kg ": null ;
+    (newItem.liter > 0) ? output += newItem.liter + " liter ": null ;
+    (newItem.units > 0) ? output += newItem.units + " units ": null ;
+  } else{
+    (newItem.lbs > 0) ? output += newItem.lbs + " lbs ": null ;
+    (newItem.cups > 0) ? output += newItem.cups + " cups ": null ;
+    (newItem.units > 0) ? output += newItem.units + " units ": null ;
+  }
+//round ingr units to 
+  console.log("add ingr to shoppinglist : " + ingrName);
 
   let divListItem = document.createElement('div')
   divListItem.classList.add('list-item');
@@ -589,46 +615,94 @@ function buildShoppingListItem(name, amount, unit){
     divListItem.append(divItemName);
 
       let pItemName = document.createElement('p');
-      pItemName.innerHTML = name.split(/-/).join(" ");
+      pItemName.innerHTML = ingrName.split(/-/).join(" ");
       divItemName.append(pItemName);
 
-      //Metric
     let divItemQnty = document.createElement('div');
     divItemQnty.classList.add('item-qnty');
     divListItem.append(divItemQnty);
 
       let pItemQnty = document.createElement('p');
-      pItemQnty.innerHTML = amount;
+      pItemQnty.innerHTML = output;
       divItemQnty.append(pItemQnty);
 
-      let pItemUnit = document.createElement('p');
-      pItemUnit.innerHTML = unit;
-      divItemQnty.append(pItemUnit);
+}
 
-       /* //Imperial
-      let divItemQntyImp = document.createElement('div');
-      divItemQntyImp.classList.add('item-qnty');
-      divListItem.append(divItemQntyImp);
-  
-        let pItemQntyImp = document.createElement('p');
-        //let pItemQntyImpConvert = convert(amount, unit).to('')
-        pItemQntyImp.innerHTML = amount;
-        divItemQntyImp.append(pItemQntyImp);
-  
-        let pItemUnitImp = document.createElement('p');
-        pItemUnitImp.innerHTML = unit;
-        divItemQntyImp.append(pItemUnitImp);
-  */
+//Rounds values to highest simple units
+function simplifyIngredient(ingredient, metricToggle){
+  let ingrCopy = JSON.parse(JSON.stringify(ingredient));
+  ingrCopy.name = "donald"
+  if(ingrCopy.ts > 0){
+    if(ingrCopy.ts < 2){
+      ingrCopy.tbs += 1
+    }else{
+      ingrCopy.tbs += ingrCopy.ts / 3;
+    }
+    ingrCopy.ts = 0;
+  }
+
+  if(ingrCopy.tbs > 0){
+    ingrCopy.cups += ingrCopy.tbs / 16;
+    ingrCopy.tbs = 0;
+  }
+
+  if(ingrCopy.oz > 0){
+    ingrCopy.lbs += ingrCopy.oz / 16;
+    ingrCopy.oz = 0;
+  }
+
+  if(ingrCopy.ml > 0){
+    ingrCopy.liter += ingrCopy.ml / 1000;
+    ingrCopy.ml = 0;
+  }
+
+  if(ingrCopy.mg > 0){
+    ingrCopy.g += ingrCopy.mg / 10;
+    ingrCopy.mg = 0;
+  }
+
+  if(ingrCopy.g > 0){
+    ingrCopy.kg += ingrCopy.g / 1000;
+    ingrCopy.g = 0;
+  }
+
+if(!metricToggle){
+  if(ingrCopy.kg > 0){
+    ingrCopy.lbs += ingrCopy.kg * 2.2;
+    ingrCopy.lbs = roundNumbers(ingrCopy.lbs);
+    ingrCopy.kg = 0;
+  }
+  if(ingrCopy.liter > 0){
+    ingrCopy.cups += ingrCopy.liter * 4.2;
+    ingrCopy.cups = roundNumbers(ingrCopy.cups);
+    ingrCopy.liter = 0;
+  }
+} else{
+  if(ingrCopy.lbs > 0){
+    ingrCopy.kg += ingrCopy.lbs / 2.2;
+    ingrCopy.kg = roundNumbers(ingrCopy.kg);
+    ingrCopy.lbs = 0;
+  }
+  if(ingrCopy.cups > 0){
+    ingrCopy.liter += ingrCopy.cups / 4.2;
+    ingrCopy.liter = roundNumbers(ingrCopy.liter);
+    ingrCopy.cups = 0;
+  }
+}
+  console.log(ingrCopy);
+  return ingrCopy;
+}
+//rounds to nearest 0.X 
+function roundNumbers(num){
+  return Math.ceil(num * 10) / 10;
 }
 
 //Delete Calendar List Item
 function deleteCalendarListItem(calendarParent){
-
-  let recName = calendarParent.getElementsByClassName('recipe-name')[0].innerHTML;
-
+  const recName = calendarParent.getElementsByClassName('recipe-name')[0].innerHTML;
   //find calendar item's ingr arrays
-  let recipe = recipeBook.find(o => o["name"] === recName)
-  let ingrList = recipe['ingredients'];
+  const recipe = recipeBook.find(o => o["name"] === recName)
+  const ingrList = recipe['ingredients'];
   //pass all ingrs to removeIngredientFromShoppingList
   ingrList.forEach(element => {
     removeIngredientFromShoppingList(element);
@@ -636,37 +710,29 @@ function deleteCalendarListItem(calendarParent){
   //delete calendar item
   calendarParent.remove()
 }
+
 //removes all ingredient from a recipe input format = ["ingredient", [quantity, Unit of measure]]
 function removeIngredientFromShoppingList(arrIngr){
-
-  let ingrName = arrIngr[0];
-  let ingrQnty = arrIngr[1][0];
-  let ingrUnit = arrIngr[1][1];
-
+  const ingrName = arrIngr[0];
+  const ingrQnty = arrIngr[1][0];
+  const ingrUnit = arrIngr[1][1];
   //find ingredient index in list by name, 
   console.log(ingrName + ' already on list');
-
   //find matching ingr in shoppinglist
-  let index = shoppingList.findIndex(x => x["name"] == ingrName)
+  const index = shoppingList.findIndex(x => x["name"] == ingrName)
+  const listItem = shoppingList[index];
   if(shoppingList[index]){
-    let listItem = shoppingList[index];
-
-  //if same unit == ingrunit then subtract them apart
-  if(ingrUnit === listItem['unit']){
-    listItem['qnty'] = listItem['qnty'] - ingrQnty;
-    console.log(listItem["qnty"]);
-      if(listItem['qnty'] === 0 ){
-        shoppingList.splice(index, 1)
-      }
-    updateShoppingList()
+    listItem[ingrUnit] -= ingrQnty;
   }
-  else{
-    //reduce change
+  if(listItem.lbs == 0 && listItem.oz == 0 && listItem.cups == 0 && listItem.tbs == 0 && listItem.ts == 0 && 
+    listItem.kg == 0 && listItem.g == 0 && listItem.mg == 0 && listItem.ml == 0 && listItem.liter == 0 && listItem.units == 0){
+      shoppingList.splice(index, 1);
   }
-  }
-  
-
+  console.log(shoppingList);
+  updateShoppingList();
 }
+
+
 
 //----------------------------------
 // Modal Functions
@@ -961,4 +1027,17 @@ function searchBar(){
       recit[i].style.display = "none";
     }
   }
+}
+
+function downloadList(){
+  if(shoppingList.length > 0){
+    download(JSON.stringify(shoppingList), "dlText.txt", "text/plain"); 
+  }
+  else{
+    throwErrorWindow("Shopping List is empty");
+  }
+}
+
+function saveLists(){
+  localStorage.setItem("recipe-book", recipeBook);
 }

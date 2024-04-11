@@ -250,7 +250,7 @@
         <div class="side-menu-wrapper" id="side-menu">
             <!--RecipeBook-->
             <div class="side-menu-page top" id="recipe">
-                <div class="tab-1" id='recipe-tab'>
+                <div class="tab-1 tab-wrap" id='recipe-tab'>
                     <div class="tab">Recipes</div>
                 </div>    
 
@@ -356,7 +356,7 @@
 
             <!--ShoppingList-->
             <div class="side-menu-page mid" id="shopping">
-                <div class="tab-2 " id="shopping-tab">
+                <div class="tab-2 tab-wrap" id="shopping-tab">
                     <div class="tab">Shopping List</div>
                 </div>    
 
@@ -364,14 +364,14 @@
                     <div class="list-container" id="shopping-list-container">
                     </div>
 
-                    <button class="download-btn">Download List</button>
+                    <button class="download-btn" id="download-list">Download List</button>
                 </div>
             </div>
 
             <!--Settings-->
             <div class="side-menu-page bot" id="settings">
 
-                <div class="tab-3" id="settings-tab">
+                <div class="tab-3 tab-wrap" id="settings-tab">
                     <div class="tab">Settings</div>
                 </div>    
 
@@ -551,10 +551,7 @@
         <div class="error-wrapper">
             <div class="error-window-wrapper error-box" id="error-window">
                 <i class="fa-solid fa-triangle-exclamation fa-xl"></i>
-                <!--<p class="text"></p> -->
-                <p>
-                    Mouse pos: <b><span id="mouse-pos"></span></b>
-                  </p>
+                <p class="text"></p>
             </div>
 
             <div class="error-cursor-wrapper error-box" id="cursor-error">
@@ -571,7 +568,6 @@
 
     <script type="module" src="./app.js"></script>
     <script src="https://kit.fontawesome.com/3d817974a5.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/convert@5/dist/index.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
