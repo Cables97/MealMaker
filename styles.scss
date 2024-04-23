@@ -15,6 +15,7 @@ $font: "Roboto Condensed", sans-serif;
 :root {
   --color-bg: #050634;
   --color-bg-edge: #04031b;
+  --color-box-bg: #dddddd;
 
   --color-text-title: #2C1320;
   --color-text: #363636;
@@ -51,9 +52,9 @@ $font: "Roboto Condensed", sans-serif;
 }
 
 @mixin inset-container {
-  width: 75%;
+  width: 80%;
   height: 800px;
-  margin: 40px auto;
+  margin: 40px auto 0;
   background-color: rgba($color: gray, $alpha: 0.25);
   box-shadow: -2px -2px 3px 2px rgba($color: gray, $alpha: 0.25) inset,
     -1px -1px 1px 1px rgba($color: gray, $alpha: 0.5) inset;
@@ -568,7 +569,6 @@ header {
     width: 100%;
     height: 100%;
     pointer-events: none;
-
     .tab-wrap{
       filter:brightness(100%);
       @include tab();
@@ -589,7 +589,7 @@ header {
     .side-menu-page-content {
       width: 400px;
       @include box;
-      position: absolute;
+      position: relative;
       top: 0;
       height: 100%;
       max-height: 955px;
@@ -614,6 +614,18 @@ header {
 
 .draggable {
   //z-index: 2;
+}
+
+.download-btn {
+  display: block;
+  width: 75%;
+  height: 2em;
+  margin: .5em auto;
+  @include button2;
+}
+
+.download-btn:hover {
+  @include button2-hover;
 }
 
 //----------------------------------
@@ -647,13 +659,7 @@ header {
   }
 
   .recipe-container {
-    width: 68%;
-    margin: 40px auto;
-    min-height: 830px;
-    height: 90%;
-    background-color: rgba($color: gray, $alpha: 0.25);
-    box-shadow: -2px -2px 3px 2px rgba($color: gray, $alpha: 0.25) inset,
-      -1px -1px 1px 1px rgba($color: gray, $alpha: 0.5) inset;
+    @include inset-container;
   }
 
   .recipe-side-bar {
@@ -760,6 +766,7 @@ header {
   flex-direction: row;
   justify-content: space-around;
   .save-load-btn {
+    @include proxy-border;
     position: relative;
     width: 45%;
     height: 2em;
@@ -892,7 +899,7 @@ header {
     transform: translate(-50%, -50%);
     height: 800px;
     width: 600px;
-    background-color: $color-text;
+    background-color: var(--color-box-bg);
     z-index: 5;
     overflow-y: auto;
     border: 2px solid rgba($color: gray, $alpha: 0.25);
@@ -913,18 +920,7 @@ header {
       text-align: center;
     }
 
-    .download-btn {
-      display: block;
-      @include button2;
-      position: relative;
-      width: 75%;
-      height: 2em;
-      margin: 0 auto;
-    }
 
-    .download-btn:hover {
-      @include button2-hover;
-    }
   }
 }
 
@@ -1106,14 +1102,24 @@ header {
 .shopping-list {
   //display:none;
   .list-container {
+    position: relative;
     @include inset-container;
+    .hint{
+      width:100%;
+      position: absolute;
+      bottom:0;
+      text-align: center;
+      @include text-font;
+      color: rgba($color: $color-background, $alpha: 0.5);
+      z-index: 1;
+    }
     .list-item {
       display: flex;
       justify-content: space-between;
       height: 3em;
       border: 1px solid black;
       background-color: #f7f7f7;
-
+      z-index: 2;
       .item-name {
         @include text-font;
         border-right: 1px solid black;
@@ -1143,19 +1149,6 @@ header {
     .list-item:nth-child(even) {
       background-color: rgba($color: rgb(241, 241, 241), $alpha: 0.2);
     }
-  }
-  .download-btn {
-    position: absolute;
-    width: 75%;
-    height: 2em;
-    bottom: 40px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    @include button2;
-  }
-
-  .download-btn:hover {
-    @include button2-hover;
   }
 }
 
@@ -1285,24 +1278,17 @@ header {
   }
   .error-cursor-wrapper {
     position: absolute;
-    height: 40px;
-    width: 100px;
-    pointer-events: all;
+    pointer-events: none;
+    min-height: 1em;
+    min-width:3em;
     border-radius: 10px;
-    background-color: $color-box-bg;
-    box-shadow: 0 0 10px 2px rgba($color: $color-background-edge, $alpha: 0.25)
-        inset,
+    background-color:var(--color-box-bg);
+    box-shadow: 0 0 10px 2px rgba($color: $color-background-edge, $alpha: 0.25) inset,
       1px 1px 20px 0 rgba($color: $color-background-edge, $alpha: 0.5);
     opacity: 0%;
+    padding:1em;
     p {
-      height: 1.5em;
-      width: 80%;
-      height: 80%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
       text-align: center;
-      transform: translate(-50%, -90%);
       @include text-font;
       font-weight: 400;
       font-size: 0.8em;
@@ -1343,13 +1329,13 @@ header {
   0% {
     opacity: 0%;
   }
-  20% {
+  10% {
     opacity: 100%;
   }
   50% {
     opacity: 100%;
   }
-  80% {
+  90% {
     opacity: 100%;
   }
   100% {

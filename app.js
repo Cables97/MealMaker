@@ -8,7 +8,10 @@ const jsonDataURL = './src/meals.json'
 async function fun() {
   return fetch(jsonDataURL).then(res => res.json());
   }
-const recipeBook  = await fun();
+const recipeImport  = await fun();
+let recipeBook = [];
+
+loadList();
 
 console.log(recipeBook);
 
@@ -39,6 +42,9 @@ const domModal = document.getElementById('modal');
 //----------------------------------
 // Global Variables
 //----------------------------------
+let grabbedObj; 
+
+let metricToggle = false;
 
 let shoppingList = [];//[["ingredient", [quantity, Unit of measure], [quantity, Unit of measure]], ["ingredient", [quantity, Unit of measure], [quantity, Unit of measure], [quantity, Unit of measure]]]
 
@@ -121,16 +127,27 @@ document.getElementById("calorie-slider").addEventListener('input', updateCalori
 document.getElementById("filter-search").addEventListener("input", searchBar);
 
 //Modal inner functions
-document.getElementById('recipe-add-step').addEventListener('click', addRecipeStep)
+document.getElementById('recipe-add-step').addEventListener('click', addRecipeStep);
 document.getElementById('add-recipe-btn').addEventListener('click', addRecipe);
 document.getElementById('recipe-add-ingr').addEventListener('click', addRecipeIngr);
 //modal Open
 
 document.getElementById('modal-close').addEventListener('click', toggleModal);
+
+//document.getElementById('add-recipe').addEventListener('click', toggleModal);
+
 document.getElementById('add-recipe').addEventListener('click', toggleModal);
+document.getElementById('download-list').addEventListener('click', downloadList);
+document.getElementById('import-data').addEventListener('click', importData);
 
 
-document.getElementById('download-list').addEventListener('click', downloadList)
+window.addEventListener("keydown", evt => {
+  const key = evt.key; // const {key} = event; in ES6+
+  if (key === "Escape") {
+    domModal.style.display = "none";
+    console.log("closing modal");
+  }
+});
 
 //----------------------------------
 // Toggle Functions
@@ -227,7 +244,8 @@ function toggleFilterItems(el){
       }
 }
 
-function throwErrorWindow(errorString){
+//shows error box 
+function throwErrorWindow(type, errorString){
   //Takes input val, pushes it to error box, then has error box play show animation
   let errorWindow = document.getElementById('error-window');
   let errorWindowText = errorWindow.getElementsByClassName('text')[0];
@@ -237,6 +255,20 @@ function throwErrorWindow(errorString){
     errorWindow.style.opacity = '0';
     errorWindow.classList.remove('error-window-pop');
   })
+  errorWindow.querySelectorAll('i')[0].classList.remove("fa-triangle-exclamation", "fa-bell", "fa-circle-check")
+  switch(type){
+    case "warn":
+        errorWindow.querySelectorAll('i')[0].classList.add("fa-triangle-exclamation");
+    break;
+
+    case "alert":
+      errorWindow.querySelectorAll('i')[0].classList.add("fa-bell");
+    break;
+
+    default:
+      errorWindow.querySelectorAll('i')[0].classList.add("fa-circle-check");
+    break;
+  }
 
   errorWindow.classList.remove('error-window-pop');
   errorWindow.offsetWidth;
@@ -248,36 +280,31 @@ function throwErrorWindow(errorString){
   }, 5000)
 }
 
+//shows cursor error 
 function throwErrorCursor(errorString){
   //small pop up offset from cursor, 1em diag. Fades after 10sec.
   let errorWindow = document.getElementById('cursor-error');
   let errorWindowText = errorWindow.getElementsByClassName('text')[0];
 
   console.log(mouseY + 'px');
-  console.log(mouseX+ 'px');
-  errorWindow.style.setProperty("top", mouseY - 100 + 'px');
+  console.log(mouseX + 'px');
+  errorWindow.style['top'] = mouseY - 225 + 'px';
   errorWindow.style['left']  = mouseX + 'px';
 
   errorWindowText.innerHTML = errorString;
-  errorWindow.addEventListener('click', ()=>{
-    errorWindow.style.opacity = '0';
-    errorWindow.classList.remove('error-window-pop');
-  })
 
   errorWindow.classList.remove('error-window-pop');
   errorWindow.offsetWidth;
   errorWindow.classList.add('error-window-pop');
   errorWindow.preventDefault;
-
 }
-
 
 
 //----------------------------------
 // Drag n Drop Functions
 //----------------------------------
 
-let grabbedObj; 
+
 
 function allowDrop(even) {
   even.preventDefault();
@@ -414,7 +441,7 @@ function buildRecipeList(recipe){
 }
 
 function buildCalenderItem(parent, recipe){
-  
+
   let recipeName = recipe.name;
   let recipeCalories = recipe.calories + " cal";
   let recipeCookDur = recipe.cookTime;
@@ -422,6 +449,8 @@ function buildCalenderItem(parent, recipe){
   let recipeDirections = recipe.directions;
   let recipeLink = recipe.link;
   let recipeId = recipe.id;
+
+  throwErrorWindow("alert", recipeName + ", added to calendar");
  //Calender Item Recipe Box
   let divCalenderItem = document.createElement("div");
   divCalenderItem.classList.add('calendar-item');
@@ -582,7 +611,6 @@ function updateShoppingList(){
 
 }
 
-let metricToggle = true;
 
 //creates ShoppingListItem in DOM
 function buildShoppingListItem(ingredient){
@@ -759,7 +787,7 @@ function addRecipe(){
 
   if(validateName == false || validateCal == false || validateCookTime == false ){
     console.log('fail');
-    throwErrorWindow('There seems to be an issue with the values entered');
+    throwErrorWindow("warn", 'There seems to be an issue with the values entered');
   } 
 
   else{
@@ -788,7 +816,7 @@ function addRecipe(){
       newRecipe['ingredients'].push(newIngredient)
 
     });
-
+    
     newRecipe['link'] = document.getElementById('m-recipe-link').value;
     console.log(newRecipe);
     //Adds the new recipe into the Recipe Book
@@ -1030,14 +1058,25 @@ function searchBar(){
 }
 
 function downloadList(){
+  console.log("Shopping list length: " + shoppingList.length);
   if(shoppingList.length > 0){
     download(JSON.stringify(shoppingList), "dlText.txt", "text/plain"); 
   }
   else{
-    throwErrorWindow("Shopping List is empty");
+    throwErrorWindow("alert", "Shopping List is empty");
   }
 }
 
 function saveLists(){
   localStorage.setItem("recipe-book", recipeBook);
+}
+
+function loadList(){
+  recipeBook = [];
+  let local = localStorage.getItem("recipe-book");
+  recipeBook = recipeImport.concat(local);
+}
+
+function importData(){
+  throwErrorCursor("This function is not fully functional yet, sorry!")
 }

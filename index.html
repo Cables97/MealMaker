@@ -256,7 +256,7 @@
 
                 <div class="side-menu-page-content recipes">
 
-                    <div class="recipe-side-bar">
+                    <!--<div class="recipe-side-bar">
 
                         <div class="filter-item-add" id="add-recipe">
                             <i class="fa-solid fa-square-plus fa-xl"></i>
@@ -340,7 +340,7 @@
                             <p>Beverages</p>
                         </div>
 
-                    </div>
+                    </div>-->
 
                     <!--Recipe Container-->
                     <div class="recipe-container" id="recipe-container">
@@ -351,6 +351,7 @@
                         </div>
 
                     </div>
+                    <button class="download-btn" id="add-recipe"><i class="fa-solid fa-pen-to-square"></i> Add Recipe</button>
                 </div>
             </div>
 
@@ -362,9 +363,10 @@
 
                 <div class="side-menu-page-content shopping-list" id="shopping-list">
                     <div class="list-container" id="shopping-list-container">
+                        <p class="hint">Shopping List can be downloaded as a .txt file</p>
                     </div>
 
-                    <button class="download-btn" id="download-list">Download List</button>
+                    <button class="download-btn" id="download-list"><i class="fa-solid fa-download"></i> Download List</button>
                 </div>
             </div>
 
@@ -442,13 +444,8 @@
                                 <p> Source: <a href="https://www.webmd.com/diet/calories-chart" target="_blank">WebMd</a></p>
                             </div>
                         </div>
-
-                        <div class="recipe-bottom-bar">
-                            <div class="save-load-btn save" id="save-btn"><p>Save</p></div>
-                            <div class="save-load-btn load" id="load-btn"><p>Upload</p></div> 
-                        </div>
                     </div>
-                    
+                    <button class="download-btn" id="import-data"><i class="fa-solid fa-upload"></i> Import Data</button>
 
                 </div>
             </div>
@@ -520,9 +517,6 @@
                         <li class="step">
                             <p>Step 1:</p>
                             <input class="text-input dir" type="text" name="step1" id="step1" placeholder="Type instructions here...">
-                            <div class="close-btn">
-                                <i class="fa-regular fa-circle-xmark"></i>
-                            </div>
                         </li>
 
 

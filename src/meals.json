@@ -21,14 +21,14 @@
 
   
   {
-    "id" : "sloppy-joes2",
-    "name": "Sloppy Joes2",
+    "id" : "sloppy-joes",
+    "name": "Sloppy Joes",
     "calories": 750,
     "cookTime": "30 min",
     "ingredients": [
       ["slider-buns", [2.0, "units"]],
-      ["slider-buns", [0.5, "lbs"]],
-      ["chocolate", [500, "ml"]]
+      ["ground-beef", [0.5, "lbs"]],
+      ["manwich-sauce", [500, "ml"]]
     ],
     "directions": {
       "0": "Brown ground beef in a saucepan, drain excess liquids",
