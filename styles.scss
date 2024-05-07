@@ -3,12 +3,10 @@ $color-background-edge: #04031b;
 $color-box-bg: #dddddd;
 $color-text: #363636;
 
-$button-1: rgb(83, 233, 83);
-$button-1-highlight: lightgreen;
-$button-2: #723344;
-$button-2-highlight: #de615b;
-$button-3: #333f72;
-$button-3-highlight: #4b53bb;
+
+$button: #723344;
+$button-highlight: #de615b;
+
 
 $font: "Roboto Condensed", sans-serif;
 
@@ -74,25 +72,17 @@ $font: "Roboto Condensed", sans-serif;
   box-shadow: 1px 1px 2px 1px rgba($color: black, $alpha: 0.25);
 }
 
-@mixin button1 {
-  @include btn;
-  background-color: $button-1;
-  color: black;
-}
-@mixin button1-hover {
-  background-color: $button-1-highlight;
-  box-shadow: 1px 1px 10px 3px rgba($color: $button-1-highlight, $alpha: 0.5);
-}
 
-@mixin button2 {
+
+@mixin button {
   @include btn;
-  background-color: $button-2;
+  background-color: $button;
   color: white;
 }
 
-@mixin button2-hover {
-  background-color: $button-2-highlight;
-  box-shadow: 1px 1px 10px 3px rgba($color: $button-2-highlight, $alpha: 0.5);
+@mixin button-hover {
+  background-color: $button-highlight;
+  box-shadow: 1px 1px 10px 3px rgba($color: $button-highlight, $alpha: 0.5);
 }
 
 @mixin box {
@@ -409,7 +399,7 @@ header {
       display: none;
       i:hover {
         cursor: pointer;
-        color: $button-2;
+        color: $button;
       }
     }
   }
@@ -472,13 +462,14 @@ header {
       margin: 5px auto;
       border-bottom: 1px solid rgba($color: black, $alpha: 0.25);
       p {
+        @include text-font;
         margin: 0;
         line-height: 125%;
-        text-transform: capitalize;
       }
       p:nth-child(1) {
         border-right: 1px solid rgba($color: black, $alpha: 0.25);
         width: 8em;
+        text-transform: capitalize;
       }
       p:nth-child(2) {
         border-right: 1px solid rgba($color: black, $alpha: 0.25);
@@ -621,11 +612,11 @@ header {
   width: 75%;
   height: 2em;
   margin: .5em auto;
-  @include button2;
+  @include button;
 }
 
 .download-btn:hover {
-  @include button2-hover;
+  @include button-hover;
 }
 
 //----------------------------------
@@ -698,7 +689,7 @@ header {
 
     .filter-item:hover {
       cursor: pointer;
-      box-shadow: 0 0 4px 4px rgba($color: $button-1-highlight, $alpha: 0.75)
+      box-shadow: 0 0 4px 4px rgba($color: $button-highlight, $alpha: 0.75)
         inset;
     }
 
@@ -710,15 +701,15 @@ header {
       background-color: rgba($color: $color-background, $alpha: 0.25);
     }
     .f-i-include:hover {
-      box-shadow: 0 0 4px 4px rgba($color: $button-2-highlight, $alpha: 0.75)
+      box-shadow: 0 0 4px 4px rgba($color: $button-highlight, $alpha: 0.75)
         inset;
     }
 
     .f-i-exclude {
-      background-color: rgba($color: $button-2-highlight, $alpha: 0.25);
+      background-color: rgba($color: $button-highlight, $alpha: 0.25);
     }
     .f-i-exclude:hover {
-      box-shadow: 0 0 4px 4px rgba($color: $button-3-highlight, $alpha: 0.75)
+      box-shadow: 0 0 4px 4px rgba($color: $button-highlight, $alpha: 0.75)
         inset;
     }
 
@@ -728,7 +719,7 @@ header {
       height: calc(100% / 15);
       aspect-ratio: 1;
       border-radius: 10px 0 0 0;
-      background-color: rgba($color: $button-1, $alpha: 0.5);
+      background-color: rgba($color: $button, $alpha: 0.5);
       transition: 0.5s;
       i {
         margin: 50%;
@@ -748,7 +739,7 @@ header {
 
     .filter-item-add:hover {
       cursor: pointer;
-      background-color: rgba($color: $button-1, $alpha: 1);
+      background-color: rgba($color: $button, $alpha: 1);
       box-shadow: 0 0 4px 4px rgba($color: black, $alpha: 0.5),
         0 0 2px 2px rgba($color: black, $alpha: 0.5) inset;
     }
@@ -772,26 +763,14 @@ header {
     height: 2em;
     border: none;
     border-radius: 5px;
-    background-color: $button-2;
+    background-color: $button;
     @include title-font;
     font-size: 2em;
     transition: 0.25s;
     text-align: center;
     line-height: 0;
   }
-  .save {
-    @include button1;
-  }
-  .save:hover {
-    @include button1-hover;
-  }
-
-  .load {
-    @include button2;
-  }
-  .load:hover {
-    @include button2-hover;
-  }
+  
 }
 
 .recipe-item {
@@ -913,7 +892,7 @@ header {
     }
     i:hover {
       cursor: pointer;
-      color: $button-2;
+      color: $button;
     }
     h1 {
       @include title-font;
@@ -1006,7 +985,7 @@ header {
       }
       i:hover {
         cursor: pointer;
-        color: $button-2;
+        color: $button;
       }
     }
   }
@@ -1051,7 +1030,7 @@ header {
       }
       i:hover {
         cursor: pointer;
-        color: $button-2;
+        color: $button;
       }
     }
   }
@@ -1066,7 +1045,7 @@ header {
   border-radius: 2px;
   box-shadow: 2px 2px 5px 5px rgba($color: black, $alpha: 0.25);
   i {
-    color: $button-2;
+    color: $button;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1076,11 +1055,11 @@ header {
 }
 
 .add-item-btn:hover {
-  box-shadow: 0 0 5px 5px $button-2-highlight;
+  box-shadow: 0 0 5px 5px $button-highlight;
 }
 
 .add-item-btn:hover > i {
-  color: $button-2-highlight;
+  color: $button-highlight;
 }
 
 .text-input {

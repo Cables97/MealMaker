@@ -328,13 +328,17 @@ header img {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 .calendar-item .tool-tip .recipe-ingredient p {
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
   margin: 0;
   line-height: 125%;
-  text-transform: capitalize;
 }
 .calendar-item .tool-tip .recipe-ingredient p:nth-child(1) {
   border-right: 1px solid rgba(0, 0, 0, 0.25);
   width: 8em;
+  text-transform: capitalize;
 }
 .calendar-item .tool-tip .recipe-ingredient p:nth-child(2) {
   border-right: 1px solid rgba(0, 0, 0, 0.25);
@@ -587,7 +591,7 @@ header img {
 }
 .recipes .recipe-side-bar .filter-item:hover {
   cursor: pointer;
-  box-shadow: 0 0 4px 4px rgba(144, 238, 144, 0.75) inset;
+  box-shadow: 0 0 4px 4px rgba(222, 97, 91, 0.75) inset;
 }
 .recipes .recipe-side-bar .filter-item:last-child {
   border-radius: 0 0 0 10px;
@@ -602,7 +606,7 @@ header img {
   background-color: rgba(222, 97, 91, 0.25);
 }
 .recipes .recipe-side-bar .f-i-exclude:hover {
-  box-shadow: 0 0 4px 4px rgba(75, 83, 187, 0.75) inset;
+  box-shadow: 0 0 4px 4px rgba(222, 97, 91, 0.75) inset;
 }
 .recipes .recipe-side-bar .filter-item-add {
   border: 1px solid black;
@@ -610,7 +614,7 @@ header img {
   height: 6.6666666667%;
   aspect-ratio: 1;
   border-radius: 10px 0 0 0;
-  background-color: rgba(83, 233, 83, 0.5);
+  background-color: rgba(114, 51, 68, 0.5);
   transition: 0.5s;
 }
 .recipes .recipe-side-bar .filter-item-add i {
@@ -629,7 +633,7 @@ header img {
 }
 .recipes .recipe-side-bar .filter-item-add:hover {
   cursor: pointer;
-  background-color: #53e953;
+  background-color: #723344;
   box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.5), 0 0 2px 2px rgba(0, 0, 0, 0.5) inset;
 }
 
@@ -660,40 +664,6 @@ header img {
   transition: 0.25s;
   text-align: center;
   line-height: 0;
-}
-.recipe-bottom-bar .save {
-  font-family: "Roboto Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 2em;
-  border: none;
-  border-radius: 5px;
-  transition: 0.25s;
-  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-  background-color: rgb(83, 233, 83);
-  color: black;
-}
-.recipe-bottom-bar .save:hover {
-  background-color: lightgreen;
-  box-shadow: 1px 1px 10px 3px rgba(144, 238, 144, 0.5);
-}
-.recipe-bottom-bar .load {
-  font-family: "Roboto Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 2em;
-  border: none;
-  border-radius: 5px;
-  transition: 0.25s;
-  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
-  background-color: #723344;
-  color: white;
-}
-.recipe-bottom-bar .load:hover {
-  background-color: #de615b;
-  box-shadow: 1px 1px 10px 3px rgba(222, 97, 91, 0.5);
 }
 
 .recipe-item {

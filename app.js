@@ -1078,5 +1078,5 @@ function loadList(){
 }
 
 function importData(){
-  throwErrorCursor("This function is not fully functional yet, sorry!")
+  throwErrorCursor("This function is not fully implemented yet, sorry!")
 }
