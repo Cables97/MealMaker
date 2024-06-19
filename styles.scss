@@ -592,13 +592,8 @@ header {
   }
 
   .recipe-container {
-    width: 68%;
-    margin: 40px auto;
-    min-height: 830px;
-    height: 90%;
-    background-color: rgba($color: gray, $alpha: 0.25);
-    box-shadow: -2px -2px 3px 2px rgba($color: gray, $alpha: 0.25) inset,
-      -1px -1px 1px 1px rgba($color: gray, $alpha: 0.5) inset;
+    @include inset-container;
+    margin:0 auto;
   }
 
   .recipe-side-bar {
@@ -858,18 +853,6 @@ header {
       text-align: center;
     }
 
-    .download-btn {
-      display: block;
-      @include button2;
-      position: relative;
-      width: 75%;
-      height: 2em;
-      margin: 0 auto;
-    }
-
-    .download-btn:hover {
-      @include button2-hover;
-    }
   }
 }
 
@@ -1089,7 +1072,8 @@ header {
       background-color: rgba($color: rgb(241, 241, 241), $alpha: 0.2);
     }
   }
-  .download-btn {
+}
+ .download-btn {
     position: absolute;
     width: 75%;
     height: 2em;
@@ -1102,8 +1086,6 @@ header {
   .download-btn:hover {
     @include button2-hover;
   }
-}
-
 //----------------------------------
 // Settings Classes
 //----------------------------------
